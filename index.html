@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101724" />
+    <title>5DAI Learning Quest - Day 1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#dashboard"><span class="brand-mark">5</span><span>DAI<br /><strong>QUEST</strong></span></a>
+        <nav aria-label="主選單">
+          <a class="nav-link active" href="#dashboard">⌂　學習總覽</a>
+          <a class="nav-link" href="#day-one">◎　Day 1 資料庫</a>
+          <a class="nav-link" href="#notes">✦　我的筆記</a>
+        </nav>
+        <section class="quest-status">
+          <p class="eyebrow">CURRENT QUEST</p>
+          <strong>Day 1</strong>
+          <span>The New SDLC<br />with Vibe Coding</span>
+          <div class="mini-progress"><i id="side-progress"></i></div>
+          <small id="side-progress-label">0% COMPLETE</small>
+        </section>
+        <button class="reset-button" id="reset-progress">↺ 重設所有進度</button>
+      </aside>
+
+      <main>
+        <header class="topbar">
+          <div><p class="eyebrow">PERSONAL LEARNING DATABASE</p><h1 id="dashboard">學習進度儀表板</h1></div>
+          <div class="date-chip" id="today"></div>
+        </header>
+
+        <section class="hero-grid" aria-label="總覽數據">
+          <article class="progress-orbit-card">
+            <div class="orbit" id="progress-orbit"><span id="total-progress">0%</span></div>
+            <div><p class="eyebrow">TOTAL PROGRESS</p><h2>五日學習計畫</h2><p class="muted">完成每一個閱讀、收聽與實作項目，逐步解鎖後續關卡。</p></div>
+          </article>
+          <article class="metric-card"><span class="metric-icon amber">⚡</span><p>目前 XP</p><strong id="xp">0</strong><small>完成項目即可累積</small></article>
+          <article class="metric-card"><span class="metric-icon blue">✓</span><p>已完成任務</p><strong id="done-count">0 / 0</strong><small>本日所有學習項目</small></article>
+          <article class="metric-card"><span class="metric-icon coral">◈</span><p>解鎖成就</p><strong id="badge-count">0</strong><small id="badge-caption">繼續前進</small></article>
+        </section>
+
+        <section class="section-heading"><div><p class="eyebrow">LEARNING PATH</p><h2>五日學習地圖</h2></div><span>依 Day 1 完成度解鎖下一關</span></section>
+        <section class="day-map" id="day-map"></section>
+
+        <section class="section-heading" id="day-one"><div><p class="eyebrow">DAY 1 DATABASE</p><h2>從氣氛編程到代理化工程</h2></div><span id="day-status">NOT STARTED</span></section>
+        <section class="day-summary">
+          <p>Day 1 將 Podcast、白皮書與作業整理成可勾選的學習資料庫。完成所有核心項目即可獲得 <b>Unit 1 Explorer</b> 徽章。</p>
+          <div class="day-summary-numbers"><strong id="day-percent">0%</strong><span>DAY 1 COMPLETE</span></div>
+        </section>
+
+        <section class="content-grid">
+          <div class="database-panel">
+            <div class="panel-header"><div><p class="eyebrow">LEARNING ITEMS</p><h3>學習項目資料庫</h3></div><button id="filter-toggle" class="quiet-button">顯示：全部 ▾</button></div>
+            <div class="table-head"><span>內容</span><span>類型</span><span>狀態</span><span>XP</span></div>
+            <div id="learning-items" class="learning-items"></div>
+          </div>
+          <aside class="right-stack">
+            <section class="card reading-card"><p class="eyebrow">WHITEPAPER READING</p><h3>白皮書閱讀路線</h3><p class="muted">以短卡片掌握 Day 1 的正式教材概念。</p><div id="slide-track" class="slide-track"></div><div class="slide-controls"><button id="prev-slide" aria-label="上一張">←</button><span id="slide-counter">1 / 6</span><button id="next-slide" aria-label="下一張">→</button></div></section>
+            <section class="card notes-card" id="notes"><p class="eyebrow">REFLECTION LOG</p><h3>我的學習筆記</h3><textarea id="notes-input" placeholder="記下今天最重要的觀察、疑問或下一步…"></textarea><small>自動儲存在這個瀏覽器。</small></section>
+          </aside>
+        </section>
+      </main>
+    </div>
+    <template id="item-template"><article class="learning-row"><label class="check-wrap"><input type="checkbox" /><span></span></label><div class="item-copy"><strong></strong><small></small></div><span class="type-tag"></span><span class="status-tag"></span><b class="item-xp"></b></article></template>
+    <script src="app.js"></script>
+  </body>
+</html>
