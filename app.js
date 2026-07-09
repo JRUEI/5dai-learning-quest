@@ -17,6 +17,13 @@ const items = [
   {id:"assignment-read", title:"完成 Unit 1 白皮書閱讀", note:"閱讀正式教材並記錄至少一個實作啟發", type:"ASSIGNMENT", xp:15},
   {id:"assignment-codelab", title:"進行 Hands-On Codelab", note:"依課程頁面的 Codelab 指示動手實作", type:"ASSIGNMENT", xp:20}
 ];
+items.push(
+  {id:"podcast-spectrum", title:"Podcast：Vibe Coding 與代理化工程", note:"比較探索式開發與具備規格、測試、CI 的工程流程。", type:"PODCAST", xp:8},
+  {id:"podcast-context-rot", title:"Podcast：上下文工程與上下文腐敗", note:"理解精準脈絡、動態載入與代理技能的重要性。", type:"PODCAST", xp:8},
+  {id:"podcast-economics", title:"Podcast：Token 經濟與世代傳承", note:"思考 harness 的成本效益與初階工程師的學習缺口。", type:"PODCAST", xp:8},
+  {id:"assignment-antigravity", title:"Codelab：Antigravity 2.0、IDE 與 CLI", note:"依 Kaggle Day 1 Codelab 練習 Vibe coding 的第一個應用。", type:"ASSIGNMENT", xp:20},
+  {id:"assignment-cloud-run", title:"Codelab：以 Google AI Studio 部署 Cloud Run", note:"將 Vibe coded app 部署並分享。", type:"ASSIGNMENT", xp:20}
+);
 const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}") || {};
 state.done ||= {}; state.notes ||= ""; state.slide ||= 0; state.filter ||= "all";
 const $ = (id) => document.getElementById(id);
