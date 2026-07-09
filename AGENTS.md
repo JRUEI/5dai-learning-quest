@@ -2,7 +2,7 @@
 
 - Verify every source HTML/PDF is readable before changing course content.
 - If a source path is unavailable, stop and notify the user before creating learning content.
-- Do not publish full course PDFs, transcripts, or course-page source material to this public repository. Publish only original summaries, task metadata, and progress UI.
+- Do not publish full course PDFs. Course transcripts or course-page source material may be published only when the user explicitly asks for it and understands the repository is public.
 - Preserve original source files; never overwrite them.
 - Verify desktop and mobile layout after UI changes.
 - Keep the site static and localStorage-based unless cloud sync is explicitly requested.
