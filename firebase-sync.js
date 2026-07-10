@@ -34,14 +34,19 @@ let applyingCloud = false;
 let syncTimer = null;
 
 const style = document.createElement("style");
-style.textContent = `.sync-dock{position:fixed;z-index:99998;top:10px;right:10px;display:flex;align-items:center;gap:8px;padding:7px 8px 7px 11px;border:1px solid #3a557dcc;border-radius:12px;background:#09111fee;color:#dbe8f8;box-shadow:0 10px 30px #0007;backdrop-filter:blur(12px);font:12px -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif}.sync-dock[data-state="synced"] .sync-status{color:#85e0b9}.sync-dock[data-state="error"] .sync-status{color:#ff9b91}.sync-dock button{border:0!important;border-radius:8px!important;padding:7px 9px!important;background:#263d5d!important;color:#eef4ff!important;font:600 11px -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif!important;cursor:pointer!important;transform:none!important}.sync-dock button:hover{background:#36547d!important}@media(max-width:760px){.sync-dock{top:auto;right:8px;bottom:8px;max-width:calc(100% - 16px)}.sync-status{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}`;
+style.textContent = `.sync-dock{display:flex;align-items:center;flex:0 0 auto;gap:7px;padding:5px 6px 5px 9px;border:1px solid #3a557dcc;border-radius:10px;background:#111f34;color:#dbe8f8;font:11px -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif}.sync-dock.sync-floating{position:fixed;z-index:99998;right:10px;bottom:10px;box-shadow:0 10px 30px #0007}.sync-dock[data-state="synced"] .sync-status{color:#85e0b9}.sync-dock[data-state="error"] .sync-status{color:#ff9b91}.sync-dock button{border:0!important;border-radius:7px!important;padding:6px 8px!important;background:#263d5d!important;color:#eef4ff!important;font:600 11px -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif!important;white-space:nowrap!important;cursor:pointer!important;transform:none!important}.sync-dock button:hover{background:#36547d!important}.nav>.sync-dock{margin-left:auto}@media(max-width:760px){.sync-dock{padding:4px 5px}.sync-status{max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.site-nav .sync-status,.nav>.sync-dock .sync-status{display:none}.nav>.sync-dock{margin-left:0}.sync-dock button{padding:6px!important}.sync-dock.sync-floating{right:8px;bottom:8px}}`;
 document.head.append(style);
 
 const dock = document.createElement("div");
 dock.className = "sync-dock";
 dock.dataset.state = "local";
 dock.innerHTML = `<span class="sync-status">僅儲存在本機</span><button type="button">Google 登入同步</button>`;
-document.body.append(dock);
+const syncHost = document.querySelector(".site-nav, .reader-links, .nav");
+if (syncHost) syncHost.append(dock);
+else {
+  dock.classList.add("sync-floating");
+  document.body.append(dock);
+}
 const status = dock.querySelector(".sync-status");
 const accountButton = dock.querySelector("button");
 
