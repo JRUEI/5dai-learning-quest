@@ -4,10 +4,10 @@ import vm from "node:vm";
 
 const root = path.resolve(import.meta.dirname, "..");
 const htmlFiles = ["index.html", "day1.html", "podcast.html", "assignment.html", "whitepaper.html"];
-const jsFiles = ["course-data.js", "progress.js", "material.js", "day1.js"];
+const jsFiles = ["course-data.js", "progress.js", "material.js", "day1.js", "home.js"];
 const errors = [];
 
-for (const file of [...htmlFiles, ...jsFiles, "site.css", "reader.css"]) {
+for (const file of [...htmlFiles, ...jsFiles, "firebase-sync.js", "site.css", "reader.css"]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing required file: ${file}`);
 }
 
@@ -23,6 +23,7 @@ for (const file of htmlFiles) {
     const clean = target.split(/[?#]/)[0];
     if (clean && !fs.existsSync(path.join(root, clean))) errors.push(`${file}: broken local reference ${target}`);
   }
+  if (!html.includes('type="module" src="firebase-sync.js"')) errors.push(`${file}: Firebase sync module is not loaded`);
 }
 
 for (const file of jsFiles) {
@@ -50,6 +51,11 @@ if (!materialScript.includes("IntersectionObserver") || !materialScript.includes
   errors.push("material.js: automatic Podcast reading progress is missing");
 }
 if (materialScript.includes("mark-material-done")) errors.push("material.js: obsolete manual Podcast completion is still present");
+
+const firebaseSync = fs.readFileSync(path.join(root, "firebase-sync.js"), "utf8");
+for (const feature of ["dai-learning-quest", "signInWithPopup", "getDoc", "setDoc", "5dai-cloud-loaded"]) {
+  if (!firebaseSync.includes(feature)) errors.push(`firebase-sync.js: missing sync feature ${feature}`);
+}
 
 const dayOne = fs.readFileSync(path.join(root, "day1.html"), "utf8");
 if (!dayOne.includes("day-material-grid")) errors.push("day1.html: materials are not promoted to the top section");

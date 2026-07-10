@@ -206,6 +206,7 @@
     }, { rootMargin: "-20% 0px -55% 0px", threshold: 0 });
     articleTopics.forEach(section => observer.observe(section));
     cardTopics.forEach(card => observer.observe(card));
+    window.addEventListener("5dai-progress", updatePodcastProgress);
     updatePodcastProgress();
   }
 
