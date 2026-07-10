@@ -41,9 +41,10 @@
     toc.innerHTML = "<strong>CHAPTERS</strong>";
     const content = document.createElement("div");
     content.className = "article-content";
-    const title = material === "podcast" ? "軟體開發的典範轉移" : "Day 1 Assignment";
-    const subtitle = material === "podcast" ? "Podcast 完整文章版 · 10 個主題" : "Unit 1 完整文章版 · 6 個段落";
-    content.innerHTML = `<header class="article-intro"><span class="kicker">DAY 1 · ${material.toUpperCase()}</span><h1>${title}</h1><p>${subtitle}。內容與圖卡版相同，僅改變閱讀排版。</p></header>`;
+    const isDayTwo = material === "podcast-day2";
+    const title = material === "podcast" ? "軟體開發的典範轉移" : isDayTwo ? "AI 代理人與自主商務" : "Day 1 Assignment";
+    const subtitle = material === "podcast" ? "Podcast 完整文章版 · 10 個主題" : isDayTwo ? "Podcast 完整文章版 · 6 個主題" : "Unit 1 完整文章版 · 6 個段落";
+    content.innerHTML = `<header class="article-intro"><span class="kicker">DAY ${isDayTwo ? "2" : "1"} · ${material.toUpperCase()}</span><h1>${title}</h1><p>${subtitle}。內容與圖卡版相同，僅改變閱讀排版。</p></header>`;
 
     cards.forEach((wrapper, index) => {
       const card = wrapper.querySelector('[id^="card-"]');
