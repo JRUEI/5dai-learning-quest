@@ -67,6 +67,54 @@ Returns a slide plan only:
 
 Checks topic coverage, source-page provenance, figure completeness, slide order and whether summaries are detailed enough to stand alone.
 
+## Deck visual design standards
+
+Whitepaper pages are presentation slides, not article pages placed inside a slide-shaped frame. Every implementation and review must preserve a clear presentation hierarchy.
+
+### Titles
+
+- Keep titles restrained. A title identifies the idea; it must not dominate half the slide merely because space is available.
+- Prefer one or two lines on desktop. Rewrite an unnecessarily long title before increasing its size or allowing awkward multi-line wrapping.
+- Make the diagram, chart or teaching point the visual focus of a content slide.
+
+### Body copy
+
+- Use concise, presentation-length explanations rather than dense article paragraphs.
+- Body text must have strong contrast against the background. Do not use pale or low-opacity text that becomes difficult to read on ordinary displays.
+- Use a readable weight and line height. Do not rely on thin type or color alone to create hierarchy.
+
+### Labels and section markers
+
+- Kickers, topic names and other labels must look intentional and be immediately scannable.
+- Use a high-contrast badge, pill or similarly prominent treatment instead of small, faint colored text floating above the title.
+- Preserve the slide number and topic identity, but do not let metadata compete with the main title.
+
+### Takeaways and emphasis
+
+- A colored vertical rule by itself is not sufficient emphasis.
+- Present the main takeaway as a distinct callout with a visible background or boundary, adequate padding and an explicit label such as `重點`.
+- Keep the takeaway to one concise claim. Do not repeat the full body paragraph inside the callout.
+
+### Visual slides
+
+- Use a visual-first composition: the complete figure should receive roughly two thirds of the available content width on desktop, with a short explanation beside it.
+- Place the title across the top when doing so gives the figure more useful space.
+- Do not shrink a detailed figure to accommodate an oversized title or long paragraph. Labels inside the figure must remain readable at the initial desktop view, even when zoom is available.
+- Avoid large accidental empty areas caused by undersized figures, overly narrow columns or vertically centered article content.
+- On mobile, stack content in a deliberate reading order and verify that no grid area, caption, callout or navigation control creates horizontal overflow.
+
+### Required visual QA
+
+For at least one visual slide and one text-only slide, verify all of the following at desktop and mobile widths:
+
+- title wrapping is intentional;
+- body text contrast and weight are readable;
+- labels are visibly distinct from body text;
+- takeaway styling creates a clear emphasis point;
+- the primary figure is large enough to inspect;
+- there are no unintended implicit grid columns or rows;
+- there is no horizontal overflow.
+
 ## Pipeline
 
 1. Verify PDF readability and page count.
@@ -75,8 +123,10 @@ Checks topic coverage, source-page provenance, figure completeness, slide order 
 4. Identify figures, schemes, charts, tables and code examples.
 5. Extract complete visual regions with safe margins.
 6. Build a detailed slide plan tied to source pages.
-7. Render candidate deck pages and verify desktop/mobile legibility.
-8. Stop before website mutation unless publishing is separately authorized.
+7. Apply the deck visual design standards above.
+8. Render candidate visual and text-only deck pages and verify desktop/mobile legibility.
+9. Inspect computed layout or rendered output for unintended grid tracks and undersized figures.
+10. Stop before website mutation unless publishing is separately authorized.
 
 ## Day 2 acceptance baseline
 
@@ -91,5 +141,12 @@ Checks topic coverage, source-page provenance, figure completeness, slide order 
 - missing page provenance;
 - a scheme, table or chart is clipped;
 - a full PDF page is used when a complete visual-region extraction is possible;
+- presentation content is laid out like a dense article page;
+- an oversized title forces the primary visual into a small secondary role;
+- low-contrast body copy or faint labels reduce readability;
+- a takeaway is indicated only by a subtle line and lacks a clear emphasis treatment;
+- a detailed figure is unreadably small in the initial desktop view;
+- an unintended grid track compresses or displaces slide content;
+- desktop or mobile rendering has horizontal overflow;
 - full PDF publication;
 - source PDF modification.
