@@ -6,11 +6,21 @@
 
 - `index.html`：課程入口與五日地圖，不放任務資料庫。
 - `day1.html`：Day 1 唯一的進度與筆記資料庫。
-- `podcast.html`：完整 Podcast 閱讀版。
-- `assignment.html`：完整 Assignment 閱讀版。
+- `podcast.html`：完整 Podcast，提供文章版與原始圖卡版。
+- `assignment.html`：完整 Assignment，提供文章版與原始圖卡版。
 - `whitepaper.html`：由 Day_1.pdf 整理的 30 頁圖解簡報。
 - `course-data.js`：穩定的任務 ID、分組與 XP。
 - `progress.js`：共用 localStorage、舊版進度遷移與容錯。
+- `material.js`：教材雙閱讀模式與 Podcast 完成狀態。
+
+## 教材閱讀模式
+
+Podcast 與 Assignment 維持單一網址與單一內容來源：
+
+- 手機首次開啟預設為原始 1080 × 1920 圖卡版。
+- 桌機首次開啟預設為目錄＋文章的一覽閱讀版。
+- 頁首可手動切換「文章版／圖卡版」。
+- 手動選擇保存在 `localStorage`，之後優先沿用。
 
 ## 進度保存
 
@@ -22,13 +32,11 @@
 
 ## 本機檢查
 
-使用 Node.js 執行：
-
 ```powershell
 node scripts/validate-site.mjs
 ```
 
-檢查內容包括本地連結、必要檔案、教材標題、白皮書頁數與 JavaScript 語法。
+檢查內容包括本地連結、必要檔案、教材切換控制、白皮書頁數與 JavaScript 語法。
 
 ## 擴充 Day 2-5
 

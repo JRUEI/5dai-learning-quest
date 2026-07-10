@@ -36,7 +36,7 @@
 <body data-material="podcast">
 
   <div class="toolbar">
-    <nav class="reader-nav" aria-label="教材導覽"><a class="reader-brand" href="index.html">5DAI QUEST</a><div class="reader-links"><a href="day1.html">Day 1 資料庫</a><a href="assignment.html">Assignment</a><a href="whitepaper.html">白皮書簡報</a><button class="reader-complete" id="mark-material-done" type="button">標記 Podcast 已完成</button></div></nav>
+    <nav class="reader-nav" aria-label="教材導覽"><a class="reader-brand" href="index.html">5DAI QUEST</a><div class="reader-links"><a href="day1.html">Day 1 資料庫</a><a href="assignment.html">Assignment</a><a href="whitepaper.html">白皮書簡報</a><div class="reader-mode" role="group" aria-label="閱讀模式"><button type="button" data-reader-mode="article" aria-pressed="false">文章版</button><button type="button" data-reader-mode="card" aria-pressed="false">圖卡版</button></div><button class="reader-complete" id="mark-material-done" type="button">標記 Podcast 已完成</button></div></nav>
   </div>
 
   <!-- 【封面卡 card-01】 -->
@@ -460,7 +460,7 @@
     </div>
   </div>
 
-  <p class="reader-note">本頁保留使用者提供的完整 Podcast 內容，並重新調整為桌機與手機皆可閱讀的版面。完成後可使用頁首按鈕同步 Day 1 進度。</p>
+  <p class="reader-note">手機預設圖卡版、桌機預設文章版；可由頁首手動切換，選擇會保存在目前瀏覽器。完成後可同步 Day 1 進度。</p>
   <script>
     async function downloadAllCards() {
       const btn = document.getElementById('downloadBtn');

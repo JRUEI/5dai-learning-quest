@@ -36,7 +36,7 @@
 <body data-material="assignment">
 
   <div class="toolbar">
-    <nav class="reader-nav" aria-label="教材導覽"><a class="reader-brand" href="index.html">5DAI QUEST</a><div class="reader-links"><a href="day1.html">Day 1 資料庫</a><a href="podcast.html">Podcast</a><a href="whitepaper.html">白皮書簡報</a></div></nav>
+    <nav class="reader-nav" aria-label="教材導覽"><a class="reader-brand" href="index.html">5DAI QUEST</a><div class="reader-links"><a href="day1.html">Day 1 資料庫</a><a href="podcast.html">Podcast</a><a href="whitepaper.html">白皮書簡報</a><div class="reader-mode" role="group" aria-label="閱讀模式"><button type="button" data-reader-mode="article" aria-pressed="false">文章版</button><button type="button" data-reader-mode="card" aria-pressed="false">圖卡版</button></div></div></nav>
   </div>
 
   <!-- 【封面卡 card-01】 -->
@@ -228,7 +228,7 @@
     </div>
   </div>
 
-  <p class="reader-note">本頁保留使用者提供的完整 Assignment 內容。閱讀後請回到 <a href="day1.html">Day 1 資料庫</a>，依實際完成狀態勾選 Codelab 與部署任務。</p>
+  <p class="reader-note">手機預設圖卡版、桌機預設文章版；可由頁首手動切換。閱讀後請回到 <a href="day1.html">Day 1 資料庫</a> 勾選實際完成的任務。</p>
   <script>
     async function downloadAllCards() {
       const btn = document.getElementById('downloadBtn');
@@ -288,6 +288,6 @@
       }
     }
   </script>
-  <script src="course-data.js"></script><script src="progress.js"></script>
+  <script src="course-data.js"></script><script src="progress.js"></script><script src="material.js"></script>
 </body>
 </html>

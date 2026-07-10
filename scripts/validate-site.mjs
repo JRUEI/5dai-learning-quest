@@ -32,6 +32,18 @@ for (const file of jsFiles) {
   catch (error) { errors.push(`${file}: ${error.message}`); }
 }
 
+for (const file of ["podcast.html", "assignment.html"]) {
+  const html = fs.readFileSync(path.join(root, file), "utf8");
+  const modeControls = (html.match(/data-reader-mode=/g) || []).length;
+  if (modeControls !== 2) errors.push(`${file}: expected article/card controls, found ${modeControls}`);
+  if (!html.includes('src="material.js"')) errors.push(`${file}: material.js is not loaded`);
+}
+
+const materialScript = fs.readFileSync(path.join(root, "material.js"), "utf8");
+if (!materialScript.includes("matchMedia") || !materialScript.includes("5dai-reader-mode")) {
+  errors.push("material.js: automatic or persistent reader mode is missing");
+}
+
 const whitepaper = fs.readFileSync(path.join(root, "whitepaper.html"), "utf8");
 const slideCount = (whitepaper.match(/k:'(?:DAY 1|\d{2} \/ 30)/g) || []).length;
 if (slideCount !== 30) errors.push(`whitepaper.html: expected 30 slides, found ${slideCount}`);
