@@ -72,6 +72,9 @@ if (slideCount !== 32) errors.push(`whitepaper.html: expected 32 slides, found $
 for (const control of ['id="first"', 'id="page-number"', 'id="last"', "PageDown", "touchend", "wheel"]) {
   if (!whitepaper.includes(control)) errors.push(`whitepaper.html: missing PDF-style navigation control ${control}`);
 }
+if (!whitepaper.includes('id="deck-progress"') || !whitepaper.includes("deckProgressBar.style.width")) {
+  errors.push("whitepaper.html: visible reading progress bar is missing");
+}
 for (const image of ["evolution-timeline.jpg", "agent-loop.jpg", "spectrum-table.jpg", "vibe-spectrum.jpg", "context-architecture.jpg", "new-sdlc.jpg", "factory-model.jpg", "harness-model.jpg", "developer-modes.jpg", "economics.jpg"]) {
   if (!fs.existsSync(path.join(root, "assets", "whitepaper", image))) errors.push(`Missing whitepaper diagram: ${image}`);
 }
