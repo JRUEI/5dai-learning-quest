@@ -3,7 +3,7 @@ import path from "node:path";
 import vm from "node:vm";
 
 const root = path.resolve(import.meta.dirname, "..");
-const htmlFiles = ["index.html", "day1.html", "podcast.html", "podcast-day2.html", "assignment.html", "whitepaper.html"];
+const htmlFiles = ["index.html", "day1.html", "day2.html", "day3.html", "day4.html", "day5.html", "podcast.html", "podcast-day2.html", "assignment.html", "assignment-day2.html", "whitepaper.html", "whitepaper-day2.html"];
 const jsFiles = ["course-data.js", "progress.js", "material.js", "day1.js", "home.js"];
 const errors = [];
 
@@ -33,7 +33,7 @@ for (const file of jsFiles) {
   catch (error) { errors.push(`${file}: ${error.message}`); }
 }
 
-for (const file of ["podcast.html", "podcast-day2.html", "assignment.html"]) {
+for (const file of ["podcast.html", "podcast-day2.html", "assignment.html", "assignment-day2.html"]) {
   const html = fs.readFileSync(path.join(root, file), "utf8");
   const modeControls = (html.match(/data-reader-mode=/g) || []).length;
   if (modeControls !== 2) errors.push(`${file}: expected article/card controls, found ${modeControls}`);
