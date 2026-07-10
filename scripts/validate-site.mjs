@@ -66,6 +66,13 @@ if (!dayOneScript.includes('["assignment", "podcast", "whitepaper"]') || !dayOne
   errors.push("day1.js: required material order or reading progress panels are missing");
 }
 
+for (const file of ["index.html", "day1.html", "day2.html", "day3.html", "day4.html", "day5.html"]) {
+  const html = fs.readFileSync(path.join(root, file), "utf8");
+  for (const day of [1, 2, 3, 4, 5]) {
+    if (!html.includes(`href="day${day}.html"`)) errors.push(`${file}: global navigation is missing Day ${day}`);
+  }
+}
+
 const whitepaper = fs.readFileSync(path.join(root, "whitepaper.html"), "utf8");
 const slideCount = (whitepaper.match(/\{k:'/g) || []).length;
 if (slideCount !== 32) errors.push(`whitepaper.html: expected 32 slides, found ${slideCount}`);
@@ -77,6 +84,9 @@ if (!whitepaper.includes('id="deck-progress"') || !whitepaper.includes("deckProg
 }
 for (const image of ["evolution-timeline.jpg", "agent-loop.jpg", "spectrum-table.jpg", "vibe-spectrum.jpg", "context-architecture.jpg", "new-sdlc.jpg", "factory-model.jpg", "harness-model.jpg", "developer-modes.jpg", "economics.jpg"]) {
   if (!fs.existsSync(path.join(root, "assets", "whitepaper", image))) errors.push(`Missing whitepaper diagram: ${image}`);
+}
+for (const caption of ["Figure 1:", "Figure 2:", "Table 1:", "Figure 3:", "Figure 4:", "Figure 5:", "Figure 6:", "Figure 7:", "Figure 8:", "Figure 9:"]) {
+  if (!whitepaper.includes(caption)) errors.push(`whitepaper.html: missing original PDF caption ${caption}`);
 }
 
 if (errors.length) {

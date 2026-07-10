@@ -59,7 +59,7 @@
     const panel = panelShell(groupId, index);
     if (groupId === "assignment") buildAssignment(panel);
     if (groupId === "podcast") buildReadingPanel(panel, groupId, "podcast.html", "繼續閱讀 Podcast");
-    if (groupId === "whitepaper") buildReadingPanel(panel, groupId, "whitepaper.html", "繼續閱讀白皮書");
+    if (groupId === "whitepaper") buildReadingPanel(panel, groupId, "whitepaper.html", "繼續閱讀核心教材");
   });
 
   function renderReading(groupId, data) {

@@ -23,6 +23,13 @@
       element.removeAttribute("class");
       element.removeAttribute("id");
     });
+    clone.querySelectorAll("strong").forEach(strong => {
+      if (strong.textContent.trim().length < 24) return;
+      const emphasis = document.createElement("span");
+      emphasis.className = "article-emphasis";
+      emphasis.textContent = strong.textContent.trim();
+      strong.replaceWith(emphasis);
+    });
     return clone;
   }
 
