@@ -4,6 +4,15 @@
   const cards = [...document.querySelectorAll(".card-wrapper")];
   const storedMode = localStorage.getItem(modeKey);
   const mobileQuery = window.matchMedia("(max-width: 760px)");
+  let updatePodcastProgress = () => {};
+
+  function markPodcastTopic(topicNumber) {
+    if (material !== "podcast" || topicNumber < 1 || topicNumber > 10) return;
+    if (!ProgressStore.state.podcastSections[String(topicNumber)]) {
+      ProgressStore.markPodcastSection(topicNumber);
+    }
+    updatePodcastProgress();
+  }
 
   function cleanClone(node) {
     const clone = node.cloneNode(true);
@@ -113,6 +122,7 @@
       clone.querySelectorAll("[id]").forEach(element => element.removeAttribute("id"));
       frame.replaceChildren(clone);
       counter.textContent = `${current + 1} / ${cards.length}`;
+      markPodcastTopic(current);
       requestAnimationFrame(fitCard);
     }
 
@@ -175,7 +185,32 @@
     window.addEventListener("resize", fitCard);
   }
 
+  function setupPodcastProgress() {
+    if (material !== "podcast") return;
+    const indicator = document.querySelector("#material-progress");
+    updatePodcastProgress = () => {
+      const progress = ProgressStore.readingSummary().podcast;
+      indicator.textContent = `已閱讀 ${progress.completed} / ${progress.total}`;
+      indicator.style.setProperty("--material-percent", `${progress.percent}%`);
+    };
+    const articleTopics = [...document.querySelectorAll(".article-section")].slice(1);
+    const cardTopics = cards.slice(1);
+    articleTopics.forEach((element, index) => { element.dataset.topicNumber = String(index + 1); });
+    cardTopics.forEach((element, index) => { element.dataset.topicNumber = String(index + 1); });
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          markPodcastTopic(Number(entry.target.dataset.topicNumber));
+        }
+      });
+    }, { rootMargin: "-20% 0px -55% 0px", threshold: 0 });
+    articleTopics.forEach(section => observer.observe(section));
+    cardTopics.forEach(card => observer.observe(card));
+    updatePodcastProgress();
+  }
+
   buildArticleView();
+  setupPodcastProgress();
   buildLightbox();
   document.querySelectorAll("[data-reader-mode]").forEach(button => {
     button.addEventListener("click", () => setMode(button.dataset.readerMode, true));
@@ -189,20 +224,4 @@
     if (!localStorage.getItem(modeKey)) setMode(event.matches ? "card" : "article", false);
   });
 
-  const completeButton = document.querySelector("#mark-material-done");
-  if (completeButton && material === "podcast") {
-    const ids = CourseData.tasks.filter(task => task.group === "podcast").map(task => task.id);
-    const renderComplete = () => {
-      const done = ids.every(id => ProgressStore.state.done[id]);
-      completeButton.textContent = done ? "Podcast 已完成 ✓" : "標記 Podcast 已完成";
-      completeButton.classList.toggle("done", done);
-    };
-    completeButton.addEventListener("click", () => {
-      ids.forEach(id => { ProgressStore.state.done[id] = true; });
-      ProgressStore.state.done["assignment-podcast"] = true;
-      ProgressStore.save();
-      renderComplete();
-    });
-    renderComplete();
-  }
 })();
