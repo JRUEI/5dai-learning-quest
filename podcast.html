@@ -2,7 +2,9 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <title>原文排版圖卡產生器 (極速打包版)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day 1 完整 Podcast · 5DAI Quest</title>
+  <meta name="description" content="Day 1 Podcast：從氣氛編程到代理化工程的完整閱讀版。">
   <style>
     /* 採用系統內建高質感字體，大幅提昇轉檔速度與穩定性，避免跨域阻擋 */
     body {
@@ -29,19 +31,12 @@
     .nowrap { white-space: nowrap; }
   </style>
   
-  <!-- 引入截圖與 ZIP 打包必備套件 -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <link rel="stylesheet" href="reader.css">
 </head>
-<body>
+<body data-material="podcast">
 
   <div class="toolbar">
-    <div>
-      <h3 style="margin: 0 0 5px 0;">📸 IG 卡片產生器 (原文極速還原版)</h3>
-      <span style="font-size: 14px; color: #aaa;" id="statusText">✅ 系統字型模式：準備就緒，可直接打包！</span>
-    </div>
-    <button id="downloadBtn" onclick="downloadAllCards()">⬇️ 一鍵打包全套卡片 (ZIP)</button>
+    <nav class="reader-nav" aria-label="教材導覽"><a class="reader-brand" href="index.html">5DAI QUEST</a><div class="reader-links"><a href="day1.html">Day 1 資料庫</a><a href="assignment.html">Assignment</a><a href="whitepaper.html">白皮書簡報</a><button class="reader-complete" id="mark-material-done" type="button">標記 Podcast 已完成</button></div></nav>
   </div>
 
   <!-- 【封面卡 card-01】 -->
@@ -465,6 +460,7 @@
     </div>
   </div>
 
+  <p class="reader-note">本頁保留使用者提供的完整 Podcast 內容，並重新調整為桌機與手機皆可閱讀的版面。完成後可使用頁首按鈕同步 Day 1 進度。</p>
   <script>
     async function downloadAllCards() {
       const btn = document.getElementById('downloadBtn');
@@ -524,5 +520,6 @@
       }
     }
   </script>
+  <script src="course-data.js"></script><script src="progress.js"></script><script src="material.js"></script>
 </body>
 </html>
