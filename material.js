@@ -78,7 +78,105 @@
     requestAnimationFrame(scaleCards);
   }
 
+  function buildLightbox() {
+    const overlay = document.createElement("div");
+    overlay.className = "card-lightbox";
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.setAttribute("aria-label", "圖卡放大檢視");
+    overlay.setAttribute("aria-hidden", "true");
+    overlay.innerHTML = `<div class="lightbox-bar"><strong class="lightbox-counter"></strong><button type="button" data-lightbox-close>關閉 ✕</button></div><div class="lightbox-stage"><div class="lightbox-frame"></div><div class="lightbox-nav"><button type="button" data-lightbox-prev aria-label="上一張">←</button><button type="button" data-lightbox-next aria-label="下一張">→</button></div><span class="lightbox-hint">左右滑動切換圖卡</span></div>`;
+    document.body.append(overlay);
+    const frame = overlay.querySelector(".lightbox-frame");
+    const counter = overlay.querySelector(".lightbox-counter");
+    const stage = overlay.querySelector(".lightbox-stage");
+    let current = 0;
+    let touchStartX = null;
+    let returnFocus = null;
+
+    function fitCard() {
+      const card = frame.firstElementChild;
+      if (!card) return;
+      const maxWidth = Math.max(240, window.innerWidth - 24);
+      const maxHeight = Math.max(360, window.innerHeight - 82);
+      const scale = Math.min(maxWidth / 1080, maxHeight / 1920);
+      frame.style.width = `${1080 * scale}px`;
+      frame.style.height = `${1920 * scale}px`;
+      frame.style.setProperty("--lightbox-scale", String(scale));
+    }
+
+    function show(index) {
+      current = (index + cards.length) % cards.length;
+      const source = cards[current].querySelector('[id^="card-"]');
+      const clone = source.cloneNode(true);
+      clone.removeAttribute("id");
+      clone.querySelectorAll("[id]").forEach(element => element.removeAttribute("id"));
+      frame.replaceChildren(clone);
+      counter.textContent = `${current + 1} / ${cards.length}`;
+      requestAnimationFrame(fitCard);
+    }
+
+    function open(index, trigger) {
+      if (!mobileQuery.matches || !document.body.classList.contains("mode-card")) return;
+      returnFocus = trigger;
+      overlay.classList.add("open");
+      overlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("lightbox-open");
+      show(index);
+      overlay.querySelector("[data-lightbox-close]").focus();
+    }
+
+    function close() {
+      overlay.classList.remove("open");
+      overlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("lightbox-open");
+      returnFocus?.focus();
+    }
+
+    cards.forEach((wrapper, index) => {
+      wrapper.classList.add("card-zoomable");
+      wrapper.setAttribute("role", "button");
+      wrapper.setAttribute("tabindex", "0");
+      wrapper.setAttribute("aria-label", `放大第 ${index + 1} 張圖卡`);
+      wrapper.addEventListener("click", () => open(index, wrapper));
+      wrapper.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          open(index, wrapper);
+        }
+      });
+    });
+    overlay.querySelector("[data-lightbox-close]").addEventListener("click", close);
+    overlay.querySelector("[data-lightbox-prev]").addEventListener("click", () => show(current - 1));
+    overlay.querySelector("[data-lightbox-next]").addEventListener("click", () => show(current + 1));
+    overlay.addEventListener("click", event => { if (event.target === overlay) close(); });
+    stage.addEventListener("touchstart", event => { touchStartX = event.changedTouches[0].clientX; }, { passive: true });
+    stage.addEventListener("touchend", event => {
+      if (touchStartX === null) return;
+      const distance = event.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(distance) > 45) show(current + (distance < 0 ? 1 : -1));
+      touchStartX = null;
+    }, { passive: true });
+    stage.addEventListener("pointerdown", event => {
+      if (event.pointerType !== "touch") touchStartX = event.clientX;
+    });
+    stage.addEventListener("pointerup", event => {
+      if (event.pointerType === "touch" || touchStartX === null) return;
+      const distance = event.clientX - touchStartX;
+      if (Math.abs(distance) > 45) show(current + (distance < 0 ? 1 : -1));
+      touchStartX = null;
+    });
+    document.addEventListener("keydown", event => {
+      if (!overlay.classList.contains("open")) return;
+      if (event.key === "Escape") close();
+      if (event.key === "ArrowLeft") show(current - 1);
+      if (event.key === "ArrowRight") show(current + 1);
+    });
+    window.addEventListener("resize", fitCard);
+  }
+
   buildArticleView();
+  buildLightbox();
   document.querySelectorAll("[data-reader-mode]").forEach(button => {
     button.addEventListener("click", () => setMode(button.dataset.readerMode, true));
   });

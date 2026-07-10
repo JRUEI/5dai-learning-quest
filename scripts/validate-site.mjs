@@ -43,6 +43,13 @@ const materialScript = fs.readFileSync(path.join(root, "material.js"), "utf8");
 if (!materialScript.includes("matchMedia") || !materialScript.includes("5dai-reader-mode")) {
   errors.push("material.js: automatic or persistent reader mode is missing");
 }
+if (!materialScript.includes("card-lightbox") || !materialScript.includes("touchstart") || !materialScript.includes("touchend")) {
+  errors.push("material.js: mobile card zoom or swipe navigation is missing");
+}
+
+const dayOne = fs.readFileSync(path.join(root, "day1.html"), "utf8");
+if (!dayOne.includes("day-material-grid")) errors.push("day1.html: materials are not promoted to the top section");
+if (/<textarea|REFLECTION LOG|學習筆記/i.test(dayOne)) errors.push("day1.html: obsolete notes UI is still present");
 
 const whitepaper = fs.readFileSync(path.join(root, "whitepaper.html"), "utf8");
 const slideCount = (whitepaper.match(/k:'(?:DAY 1|\d{2} \/ 30)/g) || []).length;
