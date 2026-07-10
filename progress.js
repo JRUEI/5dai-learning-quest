@@ -49,10 +49,10 @@
   const setNotes = value => { state.notes = value; save(); };
   const setWhitepaperSlide = index => {
     state.whitepaperSlide = Math.max(state.whitepaperSlide, Number(index) || 0);
-    const ranges = [5, 11, 17, 23, 29];
+    const ranges = [6, 12, 18, 24, 31];
     const ids = ["whitepaper-01-06", "whitepaper-07-12", "whitepaper-13-18", "whitepaper-19-24", "whitepaper-25-30"];
     ranges.forEach((end, i) => { if (state.whitepaperSlide >= end) state.done[ids[i]] = true; });
-    if (state.whitepaperSlide >= 29) state.done["assignment-whitepaper"] = true;
+    if (state.whitepaperSlide >= 31) state.done["assignment-whitepaper"] = true;
     save();
   };
   const reset = () => { Object.assign(state, blank()); save(); };

@@ -8,7 +8,7 @@
 - `day1.html`：Day 1 教材入口與唯一的進度資料庫。
 - `podcast.html`：完整 Podcast，提供文章版與原始圖卡版。
 - `assignment.html`：完整 Assignment，提供文章版與原始圖卡版。
-- `whitepaper.html`：由 Day_1.pdf 整理的 30 頁圖解簡報。
+- `whitepaper.html`：由 Day_1.pdf 整理的 32 頁完整圖解簡報。
 - `course-data.js`：穩定的任務 ID、分組與 XP。
 - `progress.js`：共用 localStorage、舊版進度遷移與容錯。
 - `material.js`：教材雙閱讀模式與 Podcast 完成狀態。

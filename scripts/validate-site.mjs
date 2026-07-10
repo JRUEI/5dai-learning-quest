@@ -52,9 +52,9 @@ if (!dayOne.includes("day-material-grid")) errors.push("day1.html: materials are
 if (/<textarea|REFLECTION LOG|學習筆記/i.test(dayOne)) errors.push("day1.html: obsolete notes UI is still present");
 
 const whitepaper = fs.readFileSync(path.join(root, "whitepaper.html"), "utf8");
-const slideCount = (whitepaper.match(/k:'(?:DAY 1|\d{2} \/ 30)/g) || []).length;
-if (slideCount !== 30) errors.push(`whitepaper.html: expected 30 slides, found ${slideCount}`);
-for (const image of ["agent-loop.jpg", "vibe-spectrum.jpg", "context-architecture.jpg", "new-sdlc.jpg", "factory-model.jpg", "harness-model.jpg", "developer-modes.jpg", "economics.jpg"]) {
+const slideCount = (whitepaper.match(/\{k:'/g) || []).length;
+if (slideCount !== 32) errors.push(`whitepaper.html: expected 32 slides, found ${slideCount}`);
+for (const image of ["evolution-timeline.jpg", "agent-loop.jpg", "spectrum-table.jpg", "vibe-spectrum.jpg", "context-architecture.jpg", "new-sdlc.jpg", "factory-model.jpg", "harness-model.jpg", "developer-modes.jpg", "economics.jpg"]) {
   if (!fs.existsSync(path.join(root, "assets", "whitepaper", image))) errors.push(`Missing whitepaper diagram: ${image}`);
 }
 
