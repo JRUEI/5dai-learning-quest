@@ -58,10 +58,18 @@
       if (!card) return;
       const id = `${material}-section-${index + 1}`;
       const titleText = sectionTitle(card, index);
+      const isDayOnePodcast = material === "podcast";
+      const isPodcastIntro = isDayOnePodcast && index === 0;
+      const isPodcastEnding = isDayOnePodcast && index === cards.length - 1;
+      const sectionNumber = isPodcastIntro
+        ? "INTRO"
+        : isPodcastEnding
+          ? "END"
+          : String(isDayOnePodcast ? index : index + 1).padStart(2, "0");
       const section = document.createElement("section");
       section.className = "article-section";
       section.id = id;
-      section.innerHTML = `<span class="section-number">${String(index + 1).padStart(2, "0")}</span><h2>${titleText}</h2>`;
+      section.innerHTML = `<span class="section-number">${sectionNumber}</span><h2>${titleText}</h2>`;
       const paragraphs = [...card.querySelectorAll("p")].filter(paragraph => {
         if (paragraph.classList.contains("nowrap")) return false;
         if (paragraph.closest('[style*="border-top"]')) return false;
@@ -69,9 +77,10 @@
       });
       paragraphs.forEach(paragraph => section.append(cleanClone(paragraph)));
       content.append(section);
+      if (isPodcastIntro || isPodcastEnding) return;
       const link = document.createElement("a");
       link.href = `#${id}`;
-      link.textContent = `${String(index + 1).padStart(2, "0")} ${titleText}`;
+      link.textContent = `${sectionNumber} ${titleText}`;
       toc.append(link);
     });
     view.append(toc, content);

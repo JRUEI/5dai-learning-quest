@@ -49,6 +49,8 @@ Produces automatic tracking metadata:
 
 Podcast topics are marked read only when the reader reaches the corresponding article section or opens the corresponding card. No manual completion button is generated.
 
+Cover and ending cards are presentation structure, not progress units. They remain visible in article/card views but must not appear in the numbered `CHAPTERS` list and must not increase the topic total. For example, Day 1 has 12 cards but exactly 10 progress topics: 1 cover + 10 topics + 1 ending.
+
 ### `podcast.validate_manifest`
 
 Checks that every non-cover card maps to one topic or has an explicit multi-card grouping, and that no transcript block disappears during normalization.
@@ -75,5 +77,5 @@ Checks that every non-cover card maps to one topic or has an explicit multi-card
 - a source card is omitted without classification;
 - automatic reading is replaced by manual checkbox completion;
 - transcript order changes;
+- cover or ending cards are counted as Podcast topics;
 - source HTML is modified.
-

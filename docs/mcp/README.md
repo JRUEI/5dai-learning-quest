@@ -45,4 +45,6 @@ report findings only; do not update website
 - Do not mutate website files unless the user explicitly requests a Day update.
 - Every generated item must retain source filename and source section/page provenance.
 - A failed module must not prevent the other two read-only modules from completing.
-
+- Shared UI vocabulary is fixed: `Assignment`, `Podcast`, `Whitepaper`.
+- Podcast topic counts exclude cover and ending cards.
+- Before a parallel workstream mutates shared HTML/CSS/JS, reread `AGENTS.md` and its module specification.

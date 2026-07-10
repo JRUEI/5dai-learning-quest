@@ -4,6 +4,8 @@
 
 Inspect a course Whitepaper PDF, inventory all visual material and prepare a detailed HTML-deck plan. This module does not publish the PDF or update the website by itself.
 
+The visible website label is always `Whitepaper`. Do not replace it with `核心教材導讀`, `白皮書簡報`, or another invented label. Internal filenames and namespaces may continue to use `whitepaper`.
+
 ## MCP namespace
 
 `whitepaper`
@@ -91,4 +93,3 @@ Checks topic coverage, source-page provenance, figure completeness, slide order 
 - a full PDF page is used when a complete visual-region extraction is possible;
 - full PDF publication;
 - source PDF modification.
-

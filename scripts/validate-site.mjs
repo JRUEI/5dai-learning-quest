@@ -51,6 +51,9 @@ if (!materialScript.includes("IntersectionObserver") || !materialScript.includes
   errors.push("material.js: automatic Podcast reading progress is missing");
 }
 if (materialScript.includes("mark-material-done")) errors.push("material.js: obsolete manual Podcast completion is still present");
+if (!materialScript.includes("isPodcastIntro") || !materialScript.includes("isPodcastEnding")) {
+  errors.push("material.js: Podcast cover/ending exclusion from CHAPTERS is missing");
+}
 
 const firebaseSync = fs.readFileSync(path.join(root, "firebase-sync.js"), "utf8");
 for (const feature of ["dai-learning-quest", "signInWithPopup", "getDoc", "setDoc", "5dai-cloud-loaded"]) {
@@ -61,6 +64,10 @@ const dayOne = fs.readFileSync(path.join(root, "day1.html"), "utf8");
 if (!dayOne.includes("day-material-grid")) errors.push("day1.html: materials are not promoted to the top section");
 if (/<textarea|REFLECTION LOG|學習筆記/i.test(dayOne)) errors.push("day1.html: obsolete notes UI is still present");
 if (!dayOne.includes('src="day1.js"')) errors.push("day1.html: collapsible progress dashboard is not loaded");
+for (const file of htmlFiles) {
+  const html = fs.readFileSync(path.join(root, file), "utf8");
+  if (/核心教材導讀|核心教材|CORE READING/.test(html)) errors.push(`${file}: Whitepaper uses an obsolete invented label`);
+}
 const dayOneScript = fs.readFileSync(path.join(root, "day1.js"), "utf8");
 if (!dayOneScript.includes('["assignment", "podcast", "whitepaper"]') || !dayOneScript.includes("reading-progress")) {
   errors.push("day1.js: required material order or reading progress panels are missing");
