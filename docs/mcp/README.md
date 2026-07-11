@@ -70,4 +70,4 @@ Day 1 Assignment reading sections remain localStorage-only. Firebase stores Day 
 - Shared UI vocabulary is fixed: `Assignment`, `Podcast`, `Whitepaper`.
 - Podcast topic counts exclude cover and ending cards.
 - Before a parallel workstream mutates shared HTML/CSS/JS, reread `AGENTS.md` and its module specification.
-- Run `node scripts/validate-site.mjs` before merging or pushing `main`; do not push a partially updated shared checkout.
+- Run `node scripts/validate-site.mjs` before committing or updating a pull request. Direct pushes to protected `main` are blocked; only the integration workstream may merge after the `validate` check passes.
