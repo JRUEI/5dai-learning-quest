@@ -4,14 +4,36 @@
   const cards = [...document.querySelectorAll(".card-wrapper")];
   const storedMode = localStorage.getItem(modeKey);
   const mobileQuery = window.matchMedia("(max-width: 760px)");
+  const podcastConfig = material === "podcast"
+    ? { total: 10, storageKey: null }
+    : material === "podcast-day2"
+      ? { total: 6, storageKey: "5dai-podcast-day2-progress" }
+      : null;
   let updatePodcastProgress = () => {};
 
   function markPodcastTopic(topicNumber) {
-    if (material !== "podcast" || topicNumber < 1 || topicNumber > 10) return;
-    if (!ProgressStore.state.podcastSections[String(topicNumber)]) {
-      ProgressStore.markPodcastSection(topicNumber);
+    if (!podcastConfig || topicNumber < 1 || topicNumber > podcastConfig.total) return;
+    if (material === "podcast") {
+      if (!ProgressStore.state.podcastSections[String(topicNumber)]) {
+        ProgressStore.markPodcastSection(topicNumber);
+      }
+    } else {
+      const stored = readDayTwoPodcastProgress();
+      if (!stored[String(topicNumber)]) {
+        stored[String(topicNumber)] = true;
+        localStorage.setItem(podcastConfig.storageKey, JSON.stringify(stored));
+      }
     }
     updatePodcastProgress();
+  }
+
+  function readDayTwoPodcastProgress() {
+    if (!podcastConfig?.storageKey) return {};
+    try {
+      return JSON.parse(localStorage.getItem(podcastConfig.storageKey)) || {};
+    } catch {
+      return {};
+    }
   }
 
   function cleanClone(node) {
@@ -204,15 +226,20 @@
   }
 
   function setupPodcastProgress() {
-    if (material !== "podcast") return;
+    if (!podcastConfig) return;
     const indicator = document.querySelector("#material-progress");
     updatePodcastProgress = () => {
-      const progress = ProgressStore.readingSummary().podcast;
-      indicator.textContent = `已閱讀 ${progress.completed} / ${progress.total}`;
-      indicator.style.setProperty("--material-percent", `${progress.percent}%`);
+      const completed = material === "podcast"
+        ? ProgressStore.readingSummary().podcast.completed
+        : Object.values(readDayTwoPodcastProgress()).filter(Boolean).length;
+      const percent = Math.round(completed / podcastConfig.total * 100);
+      if (indicator) {
+        indicator.textContent = `已閱讀 ${completed} / ${podcastConfig.total}`;
+        indicator.style.setProperty("--material-percent", `${percent}%`);
+      }
     };
-    const articleTopics = [...document.querySelectorAll(".article-section")].slice(1);
-    const cardTopics = cards.slice(1);
+    const articleTopics = [...document.querySelectorAll(".article-section")].slice(1, -1);
+    const cardTopics = cards.slice(1, -1);
     articleTopics.forEach((element, index) => { element.dataset.topicNumber = String(index + 1); });
     cardTopics.forEach((element, index) => { element.dataset.topicNumber = String(index + 1); });
     const observer = new IntersectionObserver(entries => {
