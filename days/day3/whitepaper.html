@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#07111d">
+  <title>Day 3 Whitepaper · 5DAI Quest</title>
+  <meta name="description" content="Day 3 Whitepaper 簡報式閱讀器基底。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#07111d;--ink:#f7fbff;--muted:#c4d2e2;--line:#42668f;--lime:#b7ef72;--nav-h:62px;--controls-h:66px}*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;padding:var(--nav-h) 0 var(--controls-h);background:radial-gradient(circle at 84% 0,#174f67 0,transparent 34rem),var(--bg);color:var(--ink);font-family:"Noto Sans TC",sans-serif}.deck{height:calc(100svh - var(--nav-h) - var(--controls-h));display:grid;place-items:center;padding:16px 24px}.slide{width:min(1120px,100%);height:min(680px,calc(100svh - var(--nav-h) - var(--controls-h) - 32px));min-height:0;padding:clamp(28px,4vw,52px);border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,#183353,#0e1928);box-shadow:0 24px 64px #0008;display:grid;grid-template-rows:auto 1fr auto;gap:20px;overflow:auto}.slide-head{align-self:start}.slide-copy{align-self:center;max-width:800px}.k{display:inline-flex;padding:7px 11px;border:1px solid #a8e86180;border-radius:999px;background:#b7ef7217;color:#d8ffab;font:700 11px "DM Mono",monospace;letter-spacing:1.2px}h1{max-width:920px;font-size:clamp(32px,4.2vw,50px);line-height:1.12;letter-spacing:-.7px;margin:13px 0 0}p{font-size:clamp(15px,1.45vw,17px);font-weight:500;line-height:1.7;color:var(--muted)}.take{margin:18px 0 0;padding:14px 16px;border:1px solid #a8e86166;border-radius:12px;background:#b7ef7214;color:#f7ffe9}.take::before{content:'重點';display:block;margin-bottom:5px;color:var(--lime);font:800 11px "DM Mono",monospace;letter-spacing:1px}.nav{position:fixed;z-index:20;left:50%;bottom:8px;transform:translateX(-50%);width:min(1120px,calc(100% - 28px));height:50px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 9px;border:1px solid var(--line);border-radius:13px;background:#07111df2;backdrop-filter:blur(14px)}.nav a,.nav button{border:1px solid var(--line);border-radius:8px;padding:8px 11px;background:#17304b;color:#fff;text-decoration:none;cursor:pointer}.nav button:disabled{opacity:.4;cursor:not-allowed}.controls{display:flex;align-items:center;gap:5px}.jump{font:13px "DM Mono",monospace;color:var(--muted)}.jump input{width:46px;padding:7px 3px;border:1px solid var(--line);border-radius:7px;background:#0a1828;color:#fff;text-align:center}.hint{font-size:12px;color:#9fb1c6}.empty-note{max-width:700px}.empty-note strong{display:block;color:var(--lime);font:700 12px "DM Mono",monospace;letter-spacing:1.2px;margin-bottom:13px}@media(max-width:720px){:root{--nav-h:0px;--controls-h:62px}.deck{height:auto;min-height:calc(100svh - var(--controls-h));padding:10px}.slide{height:auto;min-height:calc(100svh - var(--controls-h) - 20px);padding:24px 20px;border-radius:17px}.nav{bottom:6px;width:calc(100% - 12px);justify-content:center}.nav>a{font-size:0;width:38px}.nav>a:before{content:'← D3';font-size:11px}.hint{display:none}.nav button{padding:8px 6px}}
+  </style>
+</head>
+<body data-day="3" data-material="whitepaper-day3" data-total="0">
+  <main class="deck" id="deck" aria-live="polite"></main>
+  <nav class="nav" aria-label="Whitepaper 導覽">
+    <a href="index.html">← Day 3 入口</a>
+    <div class="controls"><button id="first" type="button" aria-label="第一頁">⏮</button><button id="prev" type="button" aria-label="上一頁">←</button><label class="jump"><input id="page" type="number" min="1" aria-label="前往頁碼"><span id="total"></span></label><button id="next" type="button" aria-label="下一頁">→</button><button id="last" type="button" aria-label="最後一頁">⏭</button></div>
+    <span class="hint">滾輪 · ← →</span>
+  </nav>
+  <script>
+    (() => {
+      const PROGRESS_KEY = "5dai-day3-whitepaper-slide";
+      // Whitepaper content branch: replace the empty array with source-provenanced slide records.
+      // Each record should provide: stableId, kicker, title, summary, takeaway, source, and optional visual.
+      const slides = [];
+      const deck = document.querySelector("#deck");
+      const controls = ["first", "prev", "next", "last"].map(id => document.querySelector(`#${id}`));
+      const input = document.querySelector("#page");
+      const total = document.querySelector("#total");
+      const escapeHtml = value => String(value).replace(/[&<>\"]/g, character => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[character]));
+      let index = 0;
+
+      function render() {
+        if (!slides.length) {
+          deck.innerHTML = `<article class="slide"><header class="slide-head"><span class="k">DAY 3 · WHITEPAPER BASE</span><h1>Whitepaper 閱讀器基底</h1></header><section class="slide-copy empty-note"><strong>CONTENT SLOT / 0 PAGES</strong><p>這個簡報式閱讀器已準備好，但目前沒有可讀的 D3 PDF／HTML 來源，因此不放入臆造內容。另一個內容分支可在此加入具備 source page 與 visual provenance 的 slides。</p><p class="take">完成內容更新後，請保留本頁的頁碼導覽、來源標記、視覺區域完整性與本機進度 key。</p></section><p>Day 3 scaffold · no Whitepaper content published</p></article>`;
+          input.value = ""; input.placeholder = "—"; total.textContent = "/ 0"; controls.forEach(button => { button.disabled = true; });
+          return;
+        }
+        deck.innerHTML = slides.map((slide, slideIndex) => `<article class="slide" data-stable-id="${escapeHtml(slide.stableId)}"><header class="slide-head"><span class="k">${escapeHtml(slide.kicker || `DAY 3 · WHITEPAPER`)} · ${String(slideIndex + 1).padStart(2,"0")} / ${slides.length}</span><h1>${escapeHtml(slide.title)}</h1></header><section class="slide-copy"><p>${escapeHtml(slide.summary)}</p><p class="take">${escapeHtml(slide.takeaway)}</p></section><p>${escapeHtml(slide.source || "來源待補")}</p></article>`).join("");
+        go(Math.min(slides.length - 1, Math.max(0, Number(localStorage.getItem(PROGRESS_KEY) || 1) - 1)));
+      }
+
+      function go(nextIndex) {
+        if (!slides.length) return;
+        index = Math.max(0, Math.min(slides.length - 1, nextIndex));
+        document.querySelectorAll(".slide").forEach((slide, slideIndex) => slide.classList.toggle("active", slideIndex === index));
+        input.value = index + 1; total.textContent = `/ ${slides.length}`; controls[0].disabled = controls[1].disabled = index === 0; controls[2].disabled = controls[3].disabled = index === slides.length - 1;
+        localStorage.setItem(PROGRESS_KEY, String(Math.max(Number(localStorage.getItem(PROGRESS_KEY) || 0), index + 1)));
+        window.dispatchEvent(new CustomEvent("5dai-progress", { detail: { day: 3, material: "whitepaper", slide: index + 1 } }));
+        history.replaceState(null, "", `#page=${index + 1}`); window.scrollTo(0, 0);
+      }
+
+      document.querySelector("#first").onclick = () => go(0); document.querySelector("#prev").onclick = () => go(index - 1); document.querySelector("#next").onclick = () => go(index + 1); document.querySelector("#last").onclick = () => go(slides.length - 1); input.onchange = () => go(Number(input.value) - 1);
+      document.addEventListener("keydown", event => { if (event.target.matches("input,button,a")) return; if (event.key === "ArrowLeft" || event.key === "PageUp") go(index - 1); if (event.key === "ArrowRight" || event.key === "PageDown") go(index + 1); });
+      document.addEventListener("wheel", event => { if (Math.abs(event.deltaY) < 30 || !slides.length) return; go(index + (event.deltaY > 0 ? 1 : -1)); }, { passive: true });
+      render();
+    })();
+  </script>
+  <script type="module" src="../../js/firebase-sync.js"></script>
+</body>
+</html>
