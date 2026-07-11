@@ -5,7 +5,7 @@
 - Do not publish full course PDFs. Course transcripts or course-page source material may be published only when the user explicitly asks for it and understands the repository is public.
 - Preserve original source files; never overwrite them.
 - Verify desktop and mobile layout after UI changes.
-- Keep the site static. All progress starts in localStorage. Firebase currently syncs only Day 1 manual Assignment deliverables, Podcast topics, and Whitepaper position; Day 1 Assignment reading sections and all Day 2 progress remain localStorage-only. Do not claim or expand cloud sync unless explicitly requested.
+- Keep the site static. Progress remains available offline in localStorage. After Google sign-in, Firebase synchronizes all Day 1 and Day 2 Assignment, Podcast, and Whitepaper progress across devices. Do not add new cloud-backed data categories unless explicitly requested.
 - Use the visible material names `Assignment`, `Podcast`, and `Whitepaper`. Do not rename Whitepaper to a translated or invented product label.
 - Podcast reading progress counts topic units only. Cover and ending cards remain visible but are excluded from topic totals and the CHAPTERS list.
 - Keep the global top-level navigation as `首頁`, `Day 1`, `Day 2`, `Day 3`, `Day 4`, `Day 5`; material links belong inside each Day page.

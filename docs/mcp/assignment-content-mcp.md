@@ -79,9 +79,9 @@ Validate emphasis, callouts and lists visually at desktop and mobile sizes.
 
 ## Current website integration
 
-- Day 1 page: `days/day1/assignment.html`; 4 reading sections are tracked in `ProgressStore.assignmentSections` and remain localStorage-only.
+- Day 1 page: `days/day1/assignment.html`; 4 reading sections are tracked in `ProgressStore.assignmentSections` and synchronize after Google sign-in.
 - Day 1 manual Assignment deliverables are separate from reading progress and are included in Firebase sync.
-- Day 2 page: `days/day2/assignment.html`; 4 reading sections use `5dai-assignment-day2-progress` and remain localStorage-only.
+- Day 2 page: `days/day2/assignment.html`; 4 reading sections use `5dai-assignment-day2-progress` offline and synchronize after Google sign-in.
 
 ## Pipeline
 
@@ -100,7 +100,7 @@ Validate emphasis, callouts and lists visually at desktop and mobile sizes.
 - Expected card wrappers: 6
 - Published website page: `days/day2/assignment.html`
 - Reading units: 4 content sections; the cover and ending cards remain visible but are excluded from progress totals.
-- Day 2 reading progress key: `5dai-assignment-day2-progress` (localStorage only).
+- Day 2 reading progress key: `5dai-assignment-day2-progress` (offline cache plus Firebase sync after sign-in).
 - Replacing or republishing course content still requires an explicit user instruction.
 
 ## Hard failures

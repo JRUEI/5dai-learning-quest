@@ -112,6 +112,9 @@
   function renderDashboard() {
     const reading = readingSummary();
     groupOrder.forEach(groupId => renderReading(groupId, reading[groupId]));
+    document.querySelectorAll('.task input[type="checkbox"][data-id]').forEach(input => {
+      input.checked = Boolean(ProgressStore.state.done[input.dataset.id]);
+    });
     const overall = Math.round(groupOrder.reduce((sum, groupId) => sum + reading[groupId].percent, 0) / groupOrder.length);
     document.querySelector("#progress").textContent = `${overall}%`;
     document.querySelector("#progress-bar").style.width = `${overall}%`;
@@ -130,6 +133,7 @@
       localStorage.removeItem("5dai-assignment-day2-progress");
       localStorage.removeItem("5dai-podcast-day2-progress");
       localStorage.removeItem("5dai-day2-whitepaper-slide");
+      window.dispatchEvent(new CustomEvent("5dai-progress", { detail: { day: 2, reset: true } }));
     }
     location.reload();
   });

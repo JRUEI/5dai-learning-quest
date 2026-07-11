@@ -51,12 +51,12 @@ report findings only; do not update website
 
 | Day | Assignment | Podcast | Whitepaper | Cloud sync |
 | --- | ---: | ---: | ---: | --- |
-| Day 1 | 4 reading sections | 10 topics | 32 pages | Partial: manual deliverables + Podcast + Whitepaper |
-| Day 2 | 4 reading sections | 6 topics | 18 pages | localStorage only |
+| Day 1 | 4 reading sections | 10 topics | 32 pages | Firebase after Google sign-in |
+| Day 2 | 4 reading sections | 6 topics | 18 pages | Firebase after Google sign-in |
 
 Cover and ending cards are visible but excluded from Assignment/Podcast reading totals. Day 2 uses `5dai-assignment-day2-progress`, `5dai-podcast-day2-progress`, and `5dai-day2-whitepaper-slide`.
 
-Day 1 Assignment reading sections remain localStorage-only. Firebase stores Day 1 manual Assignment deliverables, Podcast topics, and Whitepaper position under `users/{uid}/progress/day1`.
+Progress remains available offline in localStorage. Firebase stores timestamped Day 1 and Day 2 Assignment, Podcast, Whitepaper, and reset records under `users/{uid}/progress/day1`; the legacy document path is retained for compatibility. The client merges independent device progress transactionally and listens for live cloud updates.
 
 ## Shared hard rules
 

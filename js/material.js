@@ -25,6 +25,9 @@
       if (!stored[String(sectionNumber)]) {
         stored[String(sectionNumber)] = true;
         localStorage.setItem(readingConfig.storageKey, JSON.stringify(stored));
+        window.dispatchEvent(new CustomEvent("5dai-progress", {
+          detail: { day: 2, material, section: sectionNumber }
+        }));
       }
     }
     updateReadingProgress();

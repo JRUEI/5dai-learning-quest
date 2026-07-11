@@ -2,7 +2,7 @@
 
 Personal learning-progress tracker published as a static GitHub Pages site.
 
-Progress is stored locally. After Google sign-in, Firebase currently synchronizes Day 1 manual Assignment deliverables, Podcast topics, and Whitepaper position. Day 1 Assignment reading sections and all Day 2 progress remain localStorage-only.
+Progress remains available offline in localStorage. After Google sign-in, Firebase synchronizes all Day 1 and Day 2 Assignment, Podcast, and Whitepaper progress across devices. Existing progress from multiple devices is merged on first connection, and later changes are delivered through a live Firestore listener.
 
 ## Project structure
 
