@@ -30,3 +30,16 @@ Run `node scripts/validate-site.mjs` before committing or updating a pull
 request. Parallel Codex tasks should use separate worktrees/branches. Direct
 pushes to protected `main` are blocked; only the integration task should merge
 a pull request after the `validate` check passes.
+
+## Browser previews
+
+- Production: `https://jruei.github.io/5dai-learning-quest/`
+- Preview index: `https://jruei.github.io/5dai-learning-quest/previews/`
+- Pull request preview: `https://jruei.github.io/5dai-learning-quest/previews/pr-N/`
+
+Each mutating task uses its own worktree and `agent/*` branch. Independent
+content pages may be developed in parallel, but shared JavaScript, CSS,
+navigation, validation, and deployment files use one sequential platform lane.
+The integration task merges one pull request at a time; remaining branches then
+update from `main`, validate again, and republish their previews. The generated
+`gh-pages` branch must not be edited manually.

@@ -14,6 +14,10 @@ const templateFiles = ["templates/home-database-template.html", "templates/day-d
 const jsFiles = ["js/course-data.js", "js/progress.js", "js/material.js", "js/day1.js", "js/home.js"];
 const errors = [];
 
+for (const file of [".github/workflows/publish-previews.yml", "scripts/update-pages-content.mjs", "docs/WORKFLOW.md"]) {
+  if (!fs.existsSync(path.join(root, file))) errors.push(`Missing preview workflow file: ${file}`);
+}
+
 for (const file of [...htmlFiles, ...jsFiles, "js/firebase-sync.js", "js/progress-sync-core.js", "css/site.css", "css/reader.css"]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing required file: ${file}`);
 }
@@ -152,6 +156,11 @@ if (!dayOneScript.includes('["assignment", "podcast", "whitepaper"]') || !dayOne
 }
 if (!dayOneScript.includes('input.checked = Boolean(ProgressStore.state.done[input.dataset.id])')) {
   errors.push("day1.js: cloud Assignment checkbox changes are not reflected in the dashboard");
+}
+
+const previewWorkflow = fs.readFileSync(path.join(root, ".github/workflows/publish-previews.yml"), "utf8");
+for (const feature of ["pull_request:", "gh-pages", "update-pages-content.mjs", "upload-pages-artifact", "deploy-pages"]) {
+  if (!previewWorkflow.includes(feature)) errors.push(`publish-previews.yml: missing preview feature ${feature}`);
 }
 
 for (const file of ["index.html", "days/day1/index.html", "days/day2/index.html", "days/day3/index.html", "days/day4/index.html", "days/day5/index.html"]) {

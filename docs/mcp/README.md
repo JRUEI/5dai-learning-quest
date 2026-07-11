@@ -46,6 +46,8 @@ report findings only; do not update website
 - Shared dashboards and progress storage: `js/day1.js`, `js/progress.js`, and `js/firebase-sync.js`.
 - Whitepaper assets: `assets/whitepaper/` and `assets/whitepaper/day2/`.
 - Parallel workstreams must use separate worktrees/branches and must not edit another workstream's owned files merely to adjust navigation or labels.
+- Every workstream must declare owned paths. Tasks that overlap shared `js/`, `css/`, navigation, validation, or workflow files must run sequentially in the platform lane.
+- Review deployed behavior at `/previews/pr-N/`; after another pull request merges, update the remaining branch from `main` and rerun both `validate` and preview deployment before integration.
 
 ## Current progress contracts
 

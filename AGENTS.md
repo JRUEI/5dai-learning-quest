@@ -11,7 +11,10 @@
 - Keep the global top-level navigation as `首頁`, `Day 1`, `Day 2`, `Day 3`, `Day 4`, `Day 5`; material links belong inside each Day page.
 - Current routes live under `days/dayN/`; shared styles live under `css/`, shared scripts under `js/`, reusable prototypes under `templates/`, and content contracts under `docs/mcp/`.
 - Parallel workstreams must use separate Codex worktrees/branches. Do not run multiple mutating tasks against the same checkout or current branch.
+- Every mutating workstream must declare its owned paths. Content workstreams may run in parallel only when their owned files do not overlap; changes to shared `js/`, `css/`, navigation, validation, or workflow files must use one sequential platform workstream.
 - Direct pushes to protected `main` are not allowed. Only the integration workstream may merge a pull request into `main`, and the `validate` status check must pass. Run `node scripts/validate-site.mjs` before committing or updating a pull request.
+- Every same-repository pull request receives a browser preview at `https://jruei.github.io/5dai-learning-quest/previews/pr-N/`. User review should use that preview instead of relying on the code diff. Before merging, update the branch from current `main` and rerun validation and preview deployment.
+- The `gh-pages` branch is generated deployment state. Never edit it manually. Closing a pull request removes its preview automatically.
 - Parallel workstreams must reread `AGENTS.md` and the relevant file in `docs/mcp/` immediately before changing shared website files.
 - Validation should test stable behavior or markup contracts, not private variable names. Script URLs may include cache-busting query parameters such as `?v=...`.
 - After updating the clone, state which files GitHub Desktop should commit and suggest a commit message.
