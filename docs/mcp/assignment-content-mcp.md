@@ -77,6 +77,12 @@ use `•` or numbered lines separated by `<br>` should be normalized into semant
 lists in article view. Decorative card metadata does not need to be recreated.
 Validate emphasis, callouts and lists visually at desktop and mobile sizes.
 
+## Current website integration
+
+- Day 1 page: `days/day1/assignment.html`; 4 reading sections are tracked in `ProgressStore.assignmentSections` and remain localStorage-only.
+- Day 1 manual Assignment deliverables are separate from reading progress and are included in Firebase sync.
+- Day 2 page: `days/day2/assignment.html`; 4 reading sections use `5dai-assignment-day2-progress` and remain localStorage-only.
+
 ## Pipeline
 
 1. Confirm the source exists and is readable.
@@ -92,7 +98,10 @@ Validate emphasis, callouts and lists visually at desktop and mobile sizes.
 
 - Source filename: `5dai_assignment_d2.html`
 - Expected card wrappers: 6
-- No website output is authorized in the current task.
+- Published website page: `days/day2/assignment.html`
+- Reading units: 4 content sections; the cover and ending cards remain visible but are excluded from progress totals.
+- Day 2 reading progress key: `5dai-assignment-day2-progress` (localStorage only).
+- Replacing or republishing course content still requires an explicit user instruction.
 
 ## Hard failures
 

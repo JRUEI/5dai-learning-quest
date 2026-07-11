@@ -49,7 +49,7 @@ Produces automatic tracking metadata:
 
 Podcast topics are marked read only when the reader reaches the corresponding article section or opens the corresponding card. No manual completion button is generated.
 
-Cover and ending cards are presentation structure, not progress units. They remain visible in article/card views but must not appear in the numbered `CHAPTERS` list and must not increase the topic total. For example, Day 1 has 12 cards but exactly 10 progress topics: 1 cover + 10 topics + 1 ending.
+Cover and ending cards are presentation structure, not progress units. They remain visible in article/card views but must not appear in the numbered `CHAPTERS` list and must not increase the topic total. Day 1 has 12 cards and 10 progress topics; Day 2 has 8 cards and 6 progress topics. In both cases the structure is 1 cover + topic cards + 1 ending.
 
 ### `podcast.validate_manifest`
 
@@ -95,6 +95,12 @@ to reproduce the card's full graphic design. Visual QA must confirm that emphasi
 and callouts are clearly distinguishable at normal desktop and mobile viewing
 sizes; checking only tag names or font-weight values is insufficient.
 
+## Current website integration
+
+- Day 1 page: `days/day1/podcast.html`; 10 topics use `ProgressStore.podcastSections` and are included in Firebase Day 1 sync.
+- Day 2 page: `days/day2/podcast.html`; 6 topics use `5dai-podcast-day2-progress` and remain localStorage-only.
+- Shared article/card behavior lives in `js/material.js`; shared presentation rules live in `css/reader.css`.
+
 ## Pipeline
 
 1. Verify the source file.
@@ -110,7 +116,11 @@ sizes; checking only tag names or font-weight values is insufficient.
 
 - Source filename: `5dai_podcast_d2.html`
 - Expected card wrappers: 8
-- No Day 2 website or Firebase records are created in the current task.
+- Published website page: `days/day2/podcast.html`
+- Expected reading topics: 6
+- Day 2 reading progress key: `5dai-podcast-day2-progress` (localStorage only).
+- Day 2 Podcast progress is not currently included in Firebase sync.
+- Replacing or republishing course content still requires an explicit user instruction.
 
 ## Hard failures
 

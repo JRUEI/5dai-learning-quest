@@ -6,6 +6,12 @@ Inspect a course Whitepaper PDF, inventory all visual material and prepare a det
 
 The visible website label is always `Whitepaper`. Do not replace it with `核心教材導讀`, `白皮書簡報`, or another invented label. Internal filenames and namespaces may continue to use `whitepaper`.
 
+## Current website integration
+
+- Day 1 page: `days/day1/whitepaper.html`; 32 reading pages use `ProgressStore.whitepaperSlide` and are included in Firebase Day 1 sync.
+- Day 2 page: `days/day2/whitepaper.html`; 18 reading pages use `5dai-day2-whitepaper-slide` and remain localStorage-only.
+- Extracted visual assets live under `assets/whitepaper/` and `assets/whitepaper/day2/`; never substitute a full PDF page when a complete figure region can be extracted.
+
 ## MCP namespace
 
 `whitepaper`
@@ -136,7 +142,11 @@ For at least one visual slide and one text-only slide, verify all of the followi
 - Source filename: `Day_2.pdf`
 - Expected pages: 49
 - PDF is unencrypted and has extractable text.
-- No full-page PDF publication and no Day 2 website generation are authorized in the current task.
+- Published website page: `days/day2/whitepaper.html`
+- Current website deck: 18 summarized reading pages with extracted visual regions.
+- Day 2 resume key: `5dai-day2-whitepaper-slide` (localStorage only).
+- Day 2 Whitepaper progress is not currently included in Firebase sync.
+- No full-page PDF publication is authorized; future deck replacement still requires explicit user instruction.
 
 ## Hard failures
 

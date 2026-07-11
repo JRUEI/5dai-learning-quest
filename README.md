@@ -2,7 +2,7 @@
 
 Personal learning-progress tracker published as a static GitHub Pages site.
 
-Progress is stored locally when signed out and synchronized through Firebase after Google sign-in.
+Progress is stored locally. After Google sign-in, Firebase currently synchronizes Day 1 manual Assignment deliverables, Podcast topics, and Whitepaper position. Day 1 Assignment reading sections and all Day 2 progress remain localStorage-only.
 
 ## Project structure
 
@@ -23,3 +23,9 @@ scripts/            Site validation tools
 
 Each Day directory uses `index.html` as its landing page. Material pages such as
 `assignment.html`, `podcast.html`, and `whitepaper.html` live beside that Day page.
+
+## Validation and parallel work
+
+Run `node scripts/validate-site.mjs` before committing changes intended for
+`main`. Parallel Codex tasks should use separate worktrees/branches; only the
+integration task should merge and push `main`.
