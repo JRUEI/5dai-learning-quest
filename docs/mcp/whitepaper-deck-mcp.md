@@ -11,6 +11,7 @@ The visible website label is always `Whitepaper`. Do not replace it with `核心
 - Day 1 page: `days/day1/whitepaper.html`; 32 reading pages use `ProgressStore.whitepaperSlide` and synchronize after Google sign-in.
 - Day 2 page: `days/day2/whitepaper.html`; 18 reading pages use `5dai-day2-whitepaper-slide` offline and synchronize after Google sign-in.
 - Day 3 page: `days/day3/whitepaper.html`; the current scaffold is source-gated and does not publish invented slide content.
+- Any Day 3 implementation must inherit the opening/progress behavior, wheel navigation, viewport-fit rules, shared palette and lower-corner metadata standards in this contract. Do not copy legacy behavior from an older Day 1 or Day 2 page.
 - Extracted visual assets live under `assets/whitepaper/` and `assets/whitepaper/day2/`; never substitute a full PDF page when a complete figure region can be extracted.
 
 ## MCP namespace

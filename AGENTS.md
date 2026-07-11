@@ -9,6 +9,7 @@
 - Use the visible material names `Assignment`, `Podcast`, and `Whitepaper`. Do not rename Whitepaper to a translated or invented product label.
 - Podcast reading progress counts topic units only. Cover and ending cards remain visible but are excluded from topic totals and the CHAPTERS list.
 - Keep the global top-level navigation as `首頁`, `Day 1`, `Day 2`, `Day 3`, `Day 4`, `Day 5`; material links belong inside each Day page.
+- Keep the home page intro compact. Do not restore the oversized marketing headline or a separate `CURRENT MISSION` panel; show current progress inside the corresponding Day card in the five-day path.
 - Current routes live under `days/dayN/`; shared styles live under `css/`, shared scripts under `js/`, reusable prototypes under `templates/`, and content contracts under `docs/mcp/`.
 - Parallel workstreams must use separate Codex worktrees/branches. Do not run multiple mutating tasks against the same checkout or current branch.
 - Every mutating workstream must declare its owned paths. Content workstreams may run in parallel only when their owned files do not overlap; changes to shared `js/`, `css/`, navigation, validation, or workflow files must use one sequential platform workstream.

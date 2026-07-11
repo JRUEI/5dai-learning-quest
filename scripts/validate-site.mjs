@@ -147,6 +147,11 @@ const dayOne = fs.readFileSync(path.join(root, "days/day1/index.html"), "utf8");
 if (!dayOne.includes("day-material-grid")) errors.push("day1.html: materials are not promoted to the top section");
 if (/<textarea|REFLECTION LOG|學習筆記/i.test(dayOne)) errors.push("day1.html: obsolete notes UI is still present");
 if (!/src="[^"]*day1\.js(?:\?[^"]*)?"/.test(dayOne)) errors.push("days/day1/index.html: collapsible progress dashboard is not loaded");
+const home = fs.readFileSync(path.join(root, "index.html"), "utf8");
+if (/把課程，變成|CURRENT MISSION|class="mission"/.test(home)) errors.push("index.html: obsolete hero or duplicate mission panel is still present");
+const roadmapStart = home.indexOf('class="roadmap"');
+const homeProgress = home.indexOf('id="home-progress-bar"');
+if (roadmapStart < 0 || homeProgress < roadmapStart) errors.push("index.html: current progress is not integrated into the five-day path");
 for (const file of htmlFiles) {
   const html = fs.readFileSync(path.join(root, file), "utf8");
   if (/核心教材導讀|核心教材|CORE READING/.test(html)) errors.push(`${file}: Whitepaper uses an obsolete invented label`);
