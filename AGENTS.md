@@ -9,6 +9,7 @@
 - Use the visible material names `Assignment`, `Podcast`, and `Whitepaper`. Do not rename Whitepaper to a translated or invented product label.
 - Podcast reading progress counts topic units only. Cover and ending cards remain visible but are excluded from topic totals and the CHAPTERS list.
 - Keep the global top-level navigation as `首頁`, `Day 1`, `Day 2`, `Day 3`, `Day 4`, `Day 5`; material links belong inside each Day page.
+- Keep the home page intro compact. Do not restore the oversized marketing headline or a separate `CURRENT MISSION` panel; show current progress inside the corresponding Day card in the five-day path.
 - Current routes live under `days/dayN/`; shared styles live under `css/`, shared scripts under `js/`, reusable prototypes under `templates/`, and content contracts under `docs/mcp/`.
 - Parallel workstreams must use separate Codex worktrees/branches. Do not run multiple mutating tasks against the same checkout or current branch.
 - Every mutating workstream must declare its owned paths. Content workstreams may run in parallel only when their owned files do not overlap; changes to shared `js/`, `css/`, navigation, validation, or workflow files must use one sequential platform workstream.
@@ -17,4 +18,5 @@
 - The `gh-pages` branch is generated deployment state. Never edit it manually. Closing a pull request removes its preview automatically.
 - Parallel workstreams must reread `AGENTS.md` and the relevant file in `docs/mcp/` immediately before changing shared website files.
 - Validation should test stable behavior or markup contracts, not private variable names. Script URLs may include cache-busting query parameters such as `?v=...`.
+- For visual website tasks, once validation passes, update the requested working-tree files directly and provide a browser/page preview without waiting for code-diff approval. Treat the webpage as the primary review surface; ask for a choice only when the choice changes the design direction.
 - After updating the clone, state which files GitHub Desktop should commit and suggest a commit message.

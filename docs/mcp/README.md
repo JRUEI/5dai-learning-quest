@@ -41,7 +41,7 @@ report findings only; do not update website
 - Day hubs: `days/day1/index.html` and `days/day2/index.html`.
 - Assignment pages: `days/day1/assignment.html` and `days/day2/assignment.html`.
 - Podcast pages: `days/day1/podcast.html` and `days/day2/podcast.html`.
-- Whitepaper pages: `days/day1/whitepaper.html` and `days/day2/whitepaper.html`.
+- Whitepaper pages: `days/day1/whitepaper.html`, `days/day2/whitepaper.html`, and the source-gated `days/day3/whitepaper.html` scaffold.
 - Shared reader behavior: `js/material.js`; shared article/card styling: `css/reader.css`.
 - Shared dashboards and progress storage: `js/day1.js`, `js/progress.js`, and `js/firebase-sync.js`.
 - Whitepaper assets: `assets/whitepaper/` and `assets/whitepaper/day2/`.
@@ -59,6 +59,8 @@ report findings only; do not update website
 Cover and ending cards are visible but excluded from Assignment/Podcast reading totals. Day 2 uses `5dai-assignment-day2-progress`, `5dai-podcast-day2-progress`, and `5dai-day2-whitepaper-slide`.
 
 Progress remains available offline in localStorage. Firebase stores timestamped Day 1 and Day 2 Assignment, Podcast, Whitepaper, and reset records under `users/{uid}/progress/day1`; the legacy document path is retained for compatibility. The client merges independent device progress transactionally and listens for live cloud updates.
+
+Whitepaper opening behavior is independent from progress sync: without an explicit `#page=N` deep link, each Whitepaper opens on page 1. Stored progress is retained for completion reporting and synchronization, but it must not force navigation to the latest page.
 
 ## Shared hard rules
 

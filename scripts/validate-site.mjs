@@ -138,14 +138,20 @@ if (!legacy.day1.assignments["assignment-cloud-run"] || !legacy.day1.podcastSect
   errors.push("progress-sync-core.js: legacy Day 1 cloud progress migration failed");
 }
 const dayTwoWhitepaper = fs.readFileSync(path.join(root, "days/day2/whitepaper.html"), "utf8");
-if (!dayTwoWhitepaper.includes("5dai-progress") || !dayTwoWhitepaper.includes("5dai-cloud-loaded")) {
-  errors.push("days/day2/whitepaper.html: Day 2 Whitepaper does not publish and receive cloud progress");
-}
+if (!dayTwoWhitepaper.includes("5dai-progress")) errors.push("days/day2/whitepaper.html: Day 2 Whitepaper does not publish cloud progress");
+if (/5dai-cloud-loaded[\s\S]{0,120}\bgo\s*\(/.test(dayTwoWhitepaper)) errors.push("days/day2/whitepaper.html: cloud sync still forces visible page navigation");
+if (/location\.hash[\s\S]{0,120}localStorage\.getItem\('5dai-day2-whitepaper-slide'\)/.test(dayTwoWhitepaper)) errors.push("days/day2/whitepaper.html: saved progress still overrides the opening page");
+if (!dayTwoWhitepaper.includes("{passive:false}")) errors.push("days/day2/whitepaper.html: desktop wheel navigation does not prevent document scrolling");
 
 const dayOne = fs.readFileSync(path.join(root, "days/day1/index.html"), "utf8");
 if (!dayOne.includes("day-material-grid")) errors.push("day1.html: materials are not promoted to the top section");
 if (/<textarea|REFLECTION LOG|學習筆記/i.test(dayOne)) errors.push("day1.html: obsolete notes UI is still present");
 if (!/src="[^"]*day1\.js(?:\?[^"]*)?"/.test(dayOne)) errors.push("days/day1/index.html: collapsible progress dashboard is not loaded");
+const home = fs.readFileSync(path.join(root, "index.html"), "utf8");
+if (/把課程，變成|CURRENT MISSION|class="mission"/.test(home)) errors.push("index.html: obsolete hero or duplicate mission panel is still present");
+const roadmapStart = home.indexOf('class="roadmap"');
+const homeProgress = home.indexOf('id="home-progress-bar"');
+if (roadmapStart < 0 || homeProgress < roadmapStart) errors.push("index.html: current progress is not integrated into the five-day path");
 for (const file of htmlFiles) {
   const html = fs.readFileSync(path.join(root, file), "utf8");
   if (/核心教材導讀|核心教材|CORE READING/.test(html)) errors.push(`${file}: Whitepaper uses an obsolete invented label`);
@@ -179,6 +185,14 @@ for (const control of ['id="first"', 'id="page-number"', 'id="last"', "PageDown"
 }
 if (!whitepaper.includes('id="deck-progress"') || !whitepaper.includes("deckProgressBar.style.width")) {
   errors.push("whitepaper.html: visible reading progress bar is missing");
+}
+if (/5dai-cloud-loaded[\s\S]{0,120}\bgoTo\s*\(/.test(whitepaper) || whitepaper.includes("ProgressStore.state.whitepaperSlide+1")) {
+  errors.push("whitepaper.html: saved or cloud progress still forces visible page navigation");
+}
+if (!whitepaper.includes("{passive:false}")) errors.push("whitepaper.html: desktop wheel navigation does not prevent document scrolling");
+for (const file of ["days/day1/whitepaper.html", "days/day2/whitepaper.html"]) {
+  const html = fs.readFileSync(path.join(root, file), "utf8");
+  if (/page\.textContent=`PAGE|page-number">PAGE/.test(html)) errors.push(`${file}: page number still uses a PAGE prefix`);
 }
 for (const image of ["evolution-timeline.jpg", "agent-loop.jpg", "spectrum-table.jpg", "vibe-spectrum.jpg", "context-architecture.jpg", "new-sdlc.jpg", "factory-model.jpg", "harness-model.jpg", "developer-modes.jpg", "economics.jpg"]) {
   if (!fs.existsSync(path.join(root, "assets", "whitepaper", image))) errors.push(`Missing whitepaper diagram: ${image}`);
