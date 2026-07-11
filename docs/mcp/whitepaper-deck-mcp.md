@@ -101,6 +101,8 @@ Whitepaper pages are presentation slides, not article pages placed inside a slid
 - Place the title across the top when doing so gives the figure more useful space.
 - Do not shrink a detailed figure to accommodate an oversized title or long paragraph. Labels inside the figure must remain readable at the initial desktop view, even when zoom is available.
 - Avoid large accidental empty areas caused by undersized figures, overly narrow columns or vertically centered article content.
+- Size the slide against the usable viewport height after accounting for fixed navigation and outer spacing. Do not combine a rigid minimum slide height with reserved navigation space in a way that creates a scrollbar at 100% browser zoom.
+- At standard desktop sizes, a slide whose content fits must occupy one viewport without an unnecessary vertical scrollbar. Preserve scrolling only when content genuinely cannot fit, especially on short mobile screens; never hide overflow and clip course content.
 - On mobile, stack content in a deliberate reading order and verify that no grid area, caption, callout or navigation control creates horizontal overflow.
 
 ### Required visual QA
@@ -113,7 +115,8 @@ For at least one visual slide and one text-only slide, verify all of the followi
 - takeaway styling creates a clear emphasis point;
 - the primary figure is large enough to inspect;
 - there are no unintended implicit grid columns or rows;
-- there is no horizontal overflow.
+- there is no horizontal overflow;
+- there is no unnecessary vertical scrollbar at 100% browser zoom on standard desktop viewports.
 
 ## Pipeline
 
@@ -148,5 +151,7 @@ For at least one visual slide and one text-only slide, verify all of the followi
 - a detailed figure is unreadably small in the initial desktop view;
 - an unintended grid track compresses or displaces slide content;
 - desktop or mobile rendering has horizontal overflow;
+- a standard desktop viewport shows a vertical scrollbar even though the slide content fits;
+- overflow is hidden in a way that clips course content on a short viewport;
 - full PDF publication;
 - source PDF modification.
