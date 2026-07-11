@@ -39,11 +39,10 @@
   const tasks = () => window.CourseData?.tasks || [];
   const completed = () => tasks().filter(task => state.done[task.id]);
   const summary = () => {
-    const all = tasks();
-    const done = completed();
+    const assignmentCompleted = Object.values(state.assignmentSections).filter(Boolean).length;
     const podcastCompleted = Object.values(state.podcastSections).filter(Boolean).length;
     const whitepaperCompleted = state.whitepaperOpened ? Math.min(32, state.whitepaperSlide + 1) : 0;
-    const assignmentPercent = all.length ? done.length / all.length * 100 : 100;
+    const assignmentPercent = assignmentCompleted / 4 * 100;
     const podcastPercent = podcastCompleted / 10 * 100;
     const whitepaperPercent = whitepaperCompleted / 32 * 100;
     return {

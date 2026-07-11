@@ -6,8 +6,8 @@ window.CourseData = {
     { id: "assignment-cloud-run", group: "assignment", title: "用 Google AI Studio / Cloud Run 完成實作" }
   ],
   groups: {
-    assignment: { label: "Assignment", description: "只保留需要實際完成的 Codelab 與部署實作。" },
+    assignment: { label: "Assignment", description: "自動記錄 4 個內容 section；實作成果另行勾選驗收。" },
     podcast: { label: "Podcast", description: "自動記錄十個主題的實際閱讀進度。" },
-      whitepaper: { label: "Whitepaper", description: "自動記錄 32 頁 Whitepaper 的閱讀進度。" }
+    whitepaper: { label: "Whitepaper", description: "自動記錄 32 頁 Whitepaper 的閱讀進度。" }
   }
 };
