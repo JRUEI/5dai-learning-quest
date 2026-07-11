@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import vm from "node:vm";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -13,7 +14,11 @@ const templateFiles = ["templates/home-database-template.html", "templates/day-d
 const jsFiles = ["js/course-data.js", "js/progress.js", "js/material.js", "js/day1.js", "js/home.js"];
 const errors = [];
 
-for (const file of [...htmlFiles, ...jsFiles, "js/firebase-sync.js", "css/site.css", "css/reader.css"]) {
+for (const file of [".github/workflows/publish-previews.yml", "scripts/update-pages-content.mjs", "docs/WORKFLOW.md"]) {
+  if (!fs.existsSync(path.join(root, file))) errors.push(`Missing preview workflow file: ${file}`);
+}
+
+for (const file of [...htmlFiles, ...jsFiles, "js/firebase-sync.js", "js/progress-sync-core.js", "css/site.css", "css/reader.css"]) {
   if (!fs.existsSync(path.join(root, file))) errors.push(`Missing required file: ${file}`);
 }
 
@@ -77,8 +82,64 @@ if (
 }
 
 const firebaseSync = fs.readFileSync(path.join(root, "js/firebase-sync.js"), "utf8");
-for (const feature of ["dai-learning-quest", "signInWithPopup", "getDoc", "setDoc", "5dai-cloud-loaded"]) {
+for (const feature of ["dai-learning-quest", "signInWithPopup", "runTransaction", "onSnapshot", "captureLocalProgress", "5dai-cloud-loaded"]) {
   if (!firebaseSync.includes(feature)) errors.push(`firebase-sync.js: missing sync feature ${feature}`);
+}
+if (!firebaseSync.includes('from "./progress-sync-core.js"')) {
+  errors.push("firebase-sync.js: shared cross-device merge core is not loaded");
+}
+if (!materialScript.includes('detail: { day: 2, material, section: sectionNumber }')) {
+  errors.push("material.js: Day 2 reading changes do not notify cloud sync");
+}
+
+const syncCore = await import(pathToFileURL(path.join(root, "js/progress-sync-core.js")));
+const emptyLocal = () => ({
+  day1: { assignments: {}, assignmentSections: {}, podcastSections: {}, whitepaper: { slide: 0, opened: false } },
+  day2: { assignments: {}, assignmentSections: {}, podcastSections: {}, whitepaper: { slide: 0, opened: false } }
+});
+const deviceALocal = emptyLocal();
+deviceALocal.day1.assignmentSections["1"] = true;
+deviceALocal.day1.whitepaper = { slide: 4, opened: true };
+deviceALocal.day2.podcastSections["1"] = true;
+const deviceA = syncCore.captureLocalProgress(syncCore.blankSyncState(), deviceALocal, 100);
+const deviceBLocal = emptyLocal();
+deviceBLocal.day1.podcastSections["2"] = true;
+deviceBLocal.day2.assignmentSections["3"] = true;
+deviceBLocal.day2.whitepaper = { slide: 7, opened: true };
+const deviceB = syncCore.captureLocalProgress(syncCore.blankSyncState(), deviceBLocal, 200);
+const mergedProgress = syncCore.effectiveProgress(syncCore.mergeSyncStates(deviceA, deviceB));
+if (!mergedProgress.day1.assignmentSections["1"] || !mergedProgress.day1.podcastSections["2"] ||
+    !mergedProgress.day2.podcastSections["1"] || !mergedProgress.day2.assignmentSections["3"] ||
+    mergedProgress.day2.whitepaper.slide !== 7) {
+  errors.push("progress-sync-core.js: independent device progress does not merge correctly");
+}
+const resetProgress = syncCore.captureLocalProgress(syncCore.mergeSyncStates(deviceA, deviceB), emptyLocal(), 300);
+const staleMerge = syncCore.effectiveProgress(syncCore.mergeSyncStates(resetProgress, deviceA));
+if (Object.keys(staleMerge.day1.assignmentSections).length || Object.keys(staleMerge.day2.podcastSections).length ||
+    staleMerge.day1.whitepaper.opened || staleMerge.day2.whitepaper.opened) {
+  errors.push("progress-sync-core.js: reset progress is resurrected by an older device snapshot");
+}
+const checkedLocal = emptyLocal();
+checkedLocal.day1.assignments["assignment-cloud-run"] = true;
+const checked = syncCore.captureLocalProgress(syncCore.blankSyncState(), checkedLocal, 400);
+const uncheckedLocal = emptyLocal();
+uncheckedLocal.day1.assignments["assignment-cloud-run"] = false;
+const unchecked = syncCore.captureLocalProgress(checked, uncheckedLocal, 500);
+if (syncCore.effectiveProgress(syncCore.mergeSyncStates(checked, unchecked)).day1.assignments["assignment-cloud-run"]) {
+  errors.push("progress-sync-core.js: latest manual Assignment checkbox value does not win");
+}
+const legacy = syncCore.effectiveProgress(syncCore.normalizeSyncState({
+  assignments: { "assignment-cloud-run": true },
+  podcastSections: { "1": true },
+  whitepaperSlide: 6,
+  whitepaperOpened: true
+}));
+if (!legacy.day1.assignments["assignment-cloud-run"] || !legacy.day1.podcastSections["1"] || legacy.day1.whitepaper.slide !== 6) {
+  errors.push("progress-sync-core.js: legacy Day 1 cloud progress migration failed");
+}
+const dayTwoWhitepaper = fs.readFileSync(path.join(root, "days/day2/whitepaper.html"), "utf8");
+if (!dayTwoWhitepaper.includes("5dai-progress") || !dayTwoWhitepaper.includes("5dai-cloud-loaded")) {
+  errors.push("days/day2/whitepaper.html: Day 2 Whitepaper does not publish and receive cloud progress");
 }
 
 const dayOne = fs.readFileSync(path.join(root, "days/day1/index.html"), "utf8");
@@ -92,6 +153,14 @@ for (const file of htmlFiles) {
 const dayOneScript = fs.readFileSync(path.join(root, "js/day1.js"), "utf8");
 if (!dayOneScript.includes('["assignment", "podcast", "whitepaper"]') || !dayOneScript.includes("reading-progress")) {
   errors.push("day1.js: required material order or reading progress panels are missing");
+}
+if (!dayOneScript.includes('input.checked = Boolean(ProgressStore.state.done[input.dataset.id])')) {
+  errors.push("day1.js: cloud Assignment checkbox changes are not reflected in the dashboard");
+}
+
+const previewWorkflow = fs.readFileSync(path.join(root, ".github/workflows/publish-previews.yml"), "utf8");
+for (const feature of ["pull_request:", "gh-pages", "update-pages-content.mjs", "upload-pages-artifact", "deploy-pages"]) {
+  if (!previewWorkflow.includes(feature)) errors.push(`publish-previews.yml: missing preview feature ${feature}`);
 }
 
 for (const file of ["index.html", "days/day1/index.html", "days/day2/index.html", "days/day3/index.html", "days/day4/index.html", "days/day5/index.html"]) {

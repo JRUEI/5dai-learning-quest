@@ -97,8 +97,8 @@ sizes; checking only tag names or font-weight values is insufficient.
 
 ## Current website integration
 
-- Day 1 page: `days/day1/podcast.html`; 10 topics use `ProgressStore.podcastSections` and are included in Firebase Day 1 sync.
-- Day 2 page: `days/day2/podcast.html`; 6 topics use `5dai-podcast-day2-progress` and remain localStorage-only.
+- Day 1 page: `days/day1/podcast.html`; 10 topics use `ProgressStore.podcastSections` and synchronize after Google sign-in.
+- Day 2 page: `days/day2/podcast.html`; 6 topics use `5dai-podcast-day2-progress` offline and synchronize after Google sign-in.
 - Shared article/card behavior lives in `js/material.js`; shared presentation rules live in `css/reader.css`.
 
 ## Pipeline
@@ -118,8 +118,7 @@ sizes; checking only tag names or font-weight values is insufficient.
 - Expected card wrappers: 8
 - Published website page: `days/day2/podcast.html`
 - Expected reading topics: 6
-- Day 2 reading progress key: `5dai-podcast-day2-progress` (localStorage only).
-- Day 2 Podcast progress is not currently included in Firebase sync.
+- Day 2 reading progress key: `5dai-podcast-day2-progress` (offline cache plus Firebase sync after sign-in).
 - Replacing or republishing course content still requires an explicit user instruction.
 
 ## Hard failures

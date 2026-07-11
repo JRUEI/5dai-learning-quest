@@ -2,7 +2,7 @@
 
 Personal learning-progress tracker published as a static GitHub Pages site.
 
-Progress is stored locally. After Google sign-in, Firebase currently synchronizes Day 1 manual Assignment deliverables, Podcast topics, and Whitepaper position. Day 1 Assignment reading sections and all Day 2 progress remain localStorage-only.
+Progress remains available offline in localStorage. After Google sign-in, Firebase synchronizes all Day 1 and Day 2 Assignment, Podcast, and Whitepaper progress across devices. Existing progress from multiple devices is merged on first connection, and later changes are delivered through a live Firestore listener.
 
 ## Project structure
 
@@ -30,3 +30,16 @@ Run `node scripts/validate-site.mjs` before committing or updating a pull
 request. Parallel Codex tasks should use separate worktrees/branches. Direct
 pushes to protected `main` are blocked; only the integration task should merge
 a pull request after the `validate` check passes.
+
+## Browser previews
+
+- Production: `https://jruei.github.io/5dai-learning-quest/`
+- Preview index: `https://jruei.github.io/5dai-learning-quest/previews/`
+- Pull request preview: `https://jruei.github.io/5dai-learning-quest/previews/pr-N/`
+
+Each mutating task uses its own worktree and `agent/*` branch. Independent
+content pages may be developed in parallel, but shared JavaScript, CSS,
+navigation, validation, and deployment files use one sequential platform lane.
+The integration task merges one pull request at a time; remaining branches then
+update from `main`, validate again, and republish their previews. The generated
+`gh-pages` branch must not be edited manually.
