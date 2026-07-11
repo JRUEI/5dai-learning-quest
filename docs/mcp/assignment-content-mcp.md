@@ -58,6 +58,25 @@ Reading requirements must not become manual checkboxes. Manual checkboxes are re
 
 Checks section order, missing text, duplicated links, unstable IDs and whether every requirement has provenance.
 
+## Text presentation contract
+
+Assignment source HTML already contains the finished visual cards. Reuse the
+existing `.card-wrapper` cards for card view; do not redraw or replace them.
+Article view is a separate reading surface and must preserve meaningful text
+structure: headings, paragraphs, strong/highlighted phrases, callouts, lists,
+links and source order.
+
+Emphasis must be perceptible at a glance. White bold text alone is insufficient
+when surrounding body text is already light; use a clearly contrasting
+source-derived highlight in addition to font weight. A callout must remain a
+visually separated block with padding, contrasting background and its source
+accent rule rather than being flattened into a paragraph with quotation marks.
+
+Preserve real `<ul>` and `<ol>` structures. Source paragraphs that consistently
+use `•` or numbered lines separated by `<br>` should be normalized into semantic
+lists in article view. Decorative card metadata does not need to be recreated.
+Validate emphasis, callouts and lists visually at desktop and mobile sizes.
+
 ## Pipeline
 
 1. Confirm the source exists and is readable.
@@ -66,7 +85,8 @@ Checks section order, missing text, duplicated links, unstable IDs and whether e
 4. Preserve source order.
 5. Separate instructions from deliverables and reference material.
 6. Produce a manifest under an isolated output directory.
-7. Validate completeness against source card count.
+7. Reuse original cards and build only the semantic article text.
+8. Validate completeness and text presentation against the source cards.
 
 ## Day 2 acceptance baseline
 
@@ -80,5 +100,6 @@ Checks section order, missing text, duplicated links, unstable IDs and whether e
 - extracted section count does not match the detected structure;
 - source order changes without an explicit transformation note;
 - a reading item is converted into a checkbox;
+- existing source cards are redrawn or replaced by generated alternatives;
+- article extraction flattens emphasis, callouts or lists;
 - any source file is overwritten.
-
