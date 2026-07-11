@@ -4,33 +4,36 @@
   const cards = [...document.querySelectorAll(".card-wrapper")];
   const storedMode = localStorage.getItem(modeKey);
   const mobileQuery = window.matchMedia("(max-width: 760px)");
-  const podcastConfig = material === "podcast"
-    ? { total: 10, storageKey: null }
-    : material === "podcast-day2"
-      ? { total: 6, storageKey: "5dai-podcast-day2-progress" }
-      : null;
-  let updatePodcastProgress = () => {};
+  const readingConfig = {
+    assignment: { total: 4, store: "assignment", storageKey: null },
+    "assignment-day2": { total: 4, storageKey: "5dai-assignment-day2-progress" },
+    podcast: { total: 10, store: "podcast", storageKey: null },
+    "podcast-day2": { total: 6, storageKey: "5dai-podcast-day2-progress" }
+  }[material] || null;
+  let updateReadingProgress = () => {};
 
-  function markPodcastTopic(topicNumber) {
-    if (!podcastConfig || topicNumber < 1 || topicNumber > podcastConfig.total) return;
-    if (material === "podcast") {
-      if (!ProgressStore.state.podcastSections[String(topicNumber)]) {
-        ProgressStore.markPodcastSection(topicNumber);
+  function markReadingSection(sectionNumber) {
+    if (!readingConfig || sectionNumber < 1 || sectionNumber > readingConfig.total) return;
+    if (readingConfig.store) {
+      const stateKey = `${readingConfig.store}Sections`;
+      const markMethod = readingConfig.store === "podcast" ? "markPodcastSection" : "markAssignmentSection";
+      if (!ProgressStore.state[stateKey][String(sectionNumber)]) {
+        ProgressStore[markMethod](sectionNumber);
       }
     } else {
-      const stored = readDayTwoPodcastProgress();
-      if (!stored[String(topicNumber)]) {
-        stored[String(topicNumber)] = true;
-        localStorage.setItem(podcastConfig.storageKey, JSON.stringify(stored));
+      const stored = readStoredProgress();
+      if (!stored[String(sectionNumber)]) {
+        stored[String(sectionNumber)] = true;
+        localStorage.setItem(readingConfig.storageKey, JSON.stringify(stored));
       }
     }
-    updatePodcastProgress();
+    updateReadingProgress();
   }
 
-  function readDayTwoPodcastProgress() {
-    if (!podcastConfig?.storageKey) return {};
+  function readStoredProgress() {
+    if (!readingConfig?.storageKey) return {};
     try {
-      return JSON.parse(localStorage.getItem(podcastConfig.storageKey)) || {};
+      return JSON.parse(localStorage.getItem(readingConfig.storageKey)) || {};
     } catch {
       return {};
     }
@@ -70,25 +73,28 @@
     toc.innerHTML = "<strong>CHAPTERS</strong>";
     const content = document.createElement("div");
     content.className = "article-content";
-    const isDayTwo = material === "podcast-day2";
-    const title = material === "podcast" ? "軟體開發的典範轉移" : isDayTwo ? "AI 代理人與自主商務" : "Day 1 Assignment";
-    const subtitle = material === "podcast" ? "Podcast 完整文章版 · 10 個主題" : isDayTwo ? "Podcast 完整文章版 · 6 個主題" : "Unit 1 完整文章版 · 6 個段落";
-    content.innerHTML = `<header class="article-intro"><span class="kicker">DAY ${isDayTwo ? "2" : "1"} · ${material.toUpperCase()}</span><h1>${title}</h1><p>${subtitle}。內容與圖卡版相同，僅改變閱讀排版。</p></header>`;
+    const isDayTwo = material.endsWith("-day2");
+    const isPodcastMaterial = material.startsWith("podcast");
+    const title = isPodcastMaterial
+      ? (isDayTwo ? "AI 代理人與自主商務" : "軟體開發的典範轉移")
+      : `Day ${isDayTwo ? "2" : "1"} Assignment`;
+    const subtitle = isPodcastMaterial
+      ? `Podcast 完整文章版 · ${readingConfig.total} 個主題`
+      : `Assignment 完整文章版 · ${readingConfig.total} 個 section`;
+    content.innerHTML = `<header class="article-intro"><span class="kicker">DAY ${isDayTwo ? "2" : "1"} · ${isPodcastMaterial ? "PODCAST" : "ASSIGNMENT"}</span><h1>${title}</h1><p>${subtitle}。內容與圖卡版相同，僅改變閱讀排版。</p></header>`;
 
     cards.forEach((wrapper, index) => {
       const card = wrapper.querySelector('[id^="card-"]');
       if (!card) return;
       const id = `${material}-section-${index + 1}`;
       const titleText = sectionTitle(card, index);
-      const isPodcast = material === "podcast" || material === "podcast-day2";
-      const isDayOnePodcast = material === "podcast";
-      const isPodcastIntro = isPodcast && index === 0;
-      const isPodcastEnding = isPodcast && index === cards.length - 1;
-      const sectionNumber = isPodcastIntro
+      const isIntro = index === 0;
+      const isEnding = index === cards.length - 1;
+      const sectionNumber = isIntro
         ? "INTRO"
-        : isPodcastEnding
+        : isEnding
           ? "END"
-          : String(isPodcast ? index : index + 1).padStart(2, "0");
+          : String(index).padStart(2, "0");
       const section = document.createElement("section");
       section.className = "article-section";
       section.id = id;
@@ -100,7 +106,7 @@
       });
       paragraphs.forEach(paragraph => section.append(cleanClone(paragraph)));
       content.append(section);
-      if (isPodcastIntro || isPodcastEnding) return;
+      if (isIntro || isEnding) return;
       const link = document.createElement("a");
       link.href = `#${id}`;
       link.textContent = `${sectionNumber} ${titleText}`;
@@ -162,7 +168,7 @@
       clone.querySelectorAll("[id]").forEach(element => element.removeAttribute("id"));
       frame.replaceChildren(clone);
       counter.textContent = `${current + 1} / ${cards.length}`;
-      markPodcastTopic(current);
+      markReadingSection(current);
       requestAnimationFrame(fitCard);
     }
 
@@ -225,16 +231,16 @@
     window.addEventListener("resize", fitCard);
   }
 
-  function setupPodcastProgress() {
-    if (!podcastConfig) return;
+  function setupReadingProgress() {
+    if (!readingConfig) return;
     const indicator = document.querySelector("#material-progress");
-    updatePodcastProgress = () => {
-      const completed = material === "podcast"
-        ? ProgressStore.readingSummary().podcast.completed
-        : Object.values(readDayTwoPodcastProgress()).filter(Boolean).length;
-      const percent = Math.round(completed / podcastConfig.total * 100);
+    updateReadingProgress = () => {
+      const completed = readingConfig.store
+        ? ProgressStore.readingSummary()[readingConfig.store].completed
+        : Object.values(readStoredProgress()).filter(Boolean).length;
+      const percent = Math.round(completed / readingConfig.total * 100);
       if (indicator) {
-        indicator.textContent = `已閱讀 ${completed} / ${podcastConfig.total}`;
+        indicator.textContent = `已閱讀 ${completed} / ${readingConfig.total}`;
         indicator.style.setProperty("--material-percent", `${percent}%`);
       }
     };
@@ -245,18 +251,17 @@
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          markPodcastTopic(Number(entry.target.dataset.topicNumber));
+          markReadingSection(Number(entry.target.dataset.topicNumber));
         }
       });
     }, { rootMargin: "-20% 0px -55% 0px", threshold: 0 });
     articleTopics.forEach(section => observer.observe(section));
     cardTopics.forEach(card => observer.observe(card));
-    window.addEventListener("5dai-progress", updatePodcastProgress);
-    updatePodcastProgress();
+    window.addEventListener("5dai-progress", updateReadingProgress);
+    updateReadingProgress();
   }
 
   function setupChapterNavigation() {
-    if (material !== "podcast" && material !== "podcast-day2") return;
     const toc = document.querySelector(".article-toc");
     const links = [...toc.querySelectorAll("a")];
     if (!links.length) return;
@@ -300,7 +305,7 @@
   }
 
   buildArticleView();
-  setupPodcastProgress();
+  setupReadingProgress();
   setupChapterNavigation();
   buildLightbox();
   document.querySelectorAll("[data-reader-mode]").forEach(button => {

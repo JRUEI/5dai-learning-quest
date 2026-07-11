@@ -1,11 +1,12 @@
 (function () {
   const KEY = "5dai-learning-quest-v3";
-  const blank = () => ({ version: 4, done: {}, notes: "", whitepaperSlide: 0, whitepaperOpened: false, podcastSections: {} });
+  const blank = () => ({ version: 4, done: {}, notes: "", whitepaperSlide: 0, whitepaperOpened: false, podcastSections: {}, assignmentSections: {} });
   const parse = (value, fallback) => {
     try { return value ? JSON.parse(value) : fallback; } catch { return fallback; }
   };
   const state = Object.assign(blank(), parse(localStorage.getItem(KEY), {}));
   state.podcastSections = state.podcastSections || {};
+  state.assignmentSections = state.assignmentSections || {};
   state.whitepaperOpened = Boolean(state.whitepaperOpened || state.whitepaperSlide > 0);
 
   if (!localStorage.getItem(KEY)) {
@@ -62,16 +63,22 @@
     state.podcastSections[String(index)] = true;
     save();
   };
+  const markAssignmentSection = index => {
+    state.assignmentSections[String(index)] = true;
+    save();
+  };
   const readingSummary = () => {
+    const assignmentCompleted = Object.values(state.assignmentSections).filter(Boolean).length;
     const podcastCompleted = Object.values(state.podcastSections).filter(Boolean).length;
     const whitepaperCompleted = state.whitepaperOpened ? Math.min(32, state.whitepaperSlide + 1) : 0;
     return {
+      assignment: { completed: assignmentCompleted, total: 4, percent: Math.round(assignmentCompleted / 4 * 100) },
       podcast: { completed: podcastCompleted, total: 10, percent: Math.round(podcastCompleted / 10 * 100) },
       whitepaper: { completed: whitepaperCompleted, total: 32, percent: Math.round(whitepaperCompleted / 32 * 100) }
     };
   };
   const reset = () => { Object.assign(state, blank()); save(); };
 
-  window.ProgressStore = { state, snapshot, summary, readingSummary, setDone, setNotes, setWhitepaperSlide, markPodcastSection, reset, save };
+  window.ProgressStore = { state, snapshot, summary, readingSummary, setDone, setNotes, setWhitepaperSlide, markPodcastSection, markAssignmentSection, reset, save };
   save();
 })();
