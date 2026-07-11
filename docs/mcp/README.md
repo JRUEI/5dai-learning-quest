@@ -36,6 +36,15 @@ validate isolated artifacts
 report findings only; do not update website
 ```
 
+## Active Day 2 website ownership
+
+- `day2.html` is the Day 2 database/hub and may link to all three materials.
+- Podcast work owns `podcast-day2.html`, Podcast behavior in `material.js`, and Podcast presentation rules in `reader.css`.
+- Whitepaper work owns `whitepaper-day2.html` and `assets/whitepaper/day2/`.
+- Assignment work owns `assignment-day2.html`.
+- The Day 2 hub must not hard-code a Whitepaper page total while the Whitepaper workstream is still changing the deck.
+- Parallel workstreams must not edit another workstream's owned files merely to adjust their own navigation or labels; coordinate through `day2.html` instead.
+
 ## Shared hard rules
 
 - Fail before generating content if a source cannot be read.
