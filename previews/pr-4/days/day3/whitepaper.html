@@ -32,16 +32,19 @@
       const input = document.querySelector("#page");
       const total = document.querySelector("#total");
       const escapeHtml = value => String(value).replace(/[&<>\"]/g, character => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[character]));
+      const KEEPCAPS = new Set(["AI", "A2A", "A2UI", "AP2", "API", "HITL", "JSON", "MCP", "PDF", "RPC", "SDLC", "UCP"]);
+      const formatKicker = value => value.split(/([·×&\/-])/).map(part => { if (/^[·×&\/-]$/.test(part)) return part; let first = true; return part.split(/(\s+)/).map(token => { if (!/[A-Za-z]/.test(token)) return token; const start = token.search(/[A-Za-z]/), bare = token.replace(/[^A-Za-z0-9]/g, "").toUpperCase(); if (KEEPCAPS.has(bare)) return token; const head = token.slice(0, start), word = token.slice(start), result = head + word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(); if (first) { first = false; return result; } return head + word.toLowerCase(); }).join(""); }).join("");
       let index = 0;
 
       function render() {
         if (!slides.length) {
-          deck.innerHTML = `<article class="slide"><header class="slide-head"><span class="k">DAY 3 · WHITEPAPER BASE</span><h1>Whitepaper 閱讀器基底</h1></header><section class="slide-copy"><p><strong class="slot-label">CONTENT SLOT / 0 PAGES</strong> 這個簡報式閱讀器已準備好，但目前沒有可讀的 D3 PDF／HTML 來源，因此不放入臆造內容。另一個內容分支可在此加入具備 source page 與 visual provenance 的 slides。</p><p class="take">完成內容更新後，請保留本頁的頁碼導覽、來源標記、視覺區域完整性與本機進度 key。</p></section><p class="slide-source">Day 3 scaffold · no Whitepaper content published</p></article>`;
+          deck.innerHTML = `<article class="slide active"><header class="slide-head"><span class="k">Whitepaper base</span><h1>Whitepaper 閱讀器基底</h1></header><section class="slide-copy"><p><strong class="slot-label">CONTENT SLOT / 0 PAGES</strong> 這個簡報式閱讀器已準備好，但目前沒有可讀的 D3 PDF／HTML 來源，因此不放入臆造內容。另一個內容分支可在此加入具備 source page 與 visual provenance 的 slides。</p><p class="take">完成內容更新後，請保留本頁的頁碼導覽、來源標記、視覺區域完整性與本機進度 key。</p></section><p class="slide-source">Day 3 scaffold · no Whitepaper content published</p></article>`;
           input.value = ""; input.placeholder = "—"; total.textContent = "/ 0"; controls.forEach(button => { button.disabled = true; });
           return;
         }
-        deck.innerHTML = slides.map((slide, slideIndex) => `<article class="slide" data-stable-id="${escapeHtml(slide.stableId)}"><header class="slide-head"><span class="k">${escapeHtml(slide.kicker || `DAY 3 · WHITEPAPER`)} · ${String(slideIndex + 1).padStart(2,"0")} / ${slides.length}</span><h1>${escapeHtml(slide.title)}</h1></header><section class="slide-copy"><p>${escapeHtml(slide.summary)}</p><p class="take">${escapeHtml(slide.takeaway)}</p></section><p class="slide-source">${escapeHtml(slide.source || "來源待補")}</p></article>`).join("");
-        go(Math.min(slides.length - 1, Math.max(0, Number(localStorage.getItem(PROGRESS_KEY) || 1) - 1)));
+        deck.innerHTML = slides.map((slide, slideIndex) => `<article class="slide" data-stable-id="${escapeHtml(slide.stableId)}"><header class="slide-head"><span class="k">${escapeHtml(formatKicker(slide.kicker || `DAY 3 · WHITEPAPER`))}</span><span class="page-number">PAGE ${String(slideIndex + 1).padStart(2,"0")} / ${slides.length}</span><h1>${escapeHtml(slide.title)}</h1></header><section class="slide-copy"><p>${escapeHtml(slide.summary)}</p><p class="take">${escapeHtml(slide.takeaway)}</p></section><p class="slide-source">${escapeHtml(slide.source || "來源待補")}</p></article>`).join("");
+        const hashPage = Number(location.hash.match(/page=(\d+)/)?.[1]);
+        go(Math.min(slides.length - 1, Math.max(0, (hashPage || 1) - 1)));
       }
 
       function go(nextIndex) {

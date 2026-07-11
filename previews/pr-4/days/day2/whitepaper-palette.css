@@ -17,13 +17,14 @@ body {
 .global-nav a[aria-current="page"], .global-nav a:hover { color: var(--amber) !important; }
 
 .slide {
-  padding: 48px 56px 80px !important;
+  position: relative !important;
+  padding: 48px 56px 96px !important;
   border-color: var(--line) !important;
   background: linear-gradient(145deg, #1b3155, #101a2b) !important;
   display: none !important;
   grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr) !important;
-  grid-template-areas: "title figure" "body figure" "take figure" "k source" !important;
-  grid-template-rows: auto auto auto 1fr !important;
+  grid-template-areas: "title figure" "body figure" "take figure" !important;
+  grid-template-rows: auto 1fr auto !important;
   gap: 14px 36px !important;
   align-items: center !important;
   align-content: center !important;
@@ -31,20 +32,37 @@ body {
 .slide.active { display: grid !important; }
 .slide:not(.visual) {
   grid-template-columns: minmax(0, 1fr) !important;
-  grid-template-areas: "title" "body" "take" "source" "k" !important;
-  grid-template-rows: auto auto auto 1fr auto !important;
+  grid-template-areas: "title" "body" "take" !important;
+  grid-template-rows: auto 1fr auto !important;
 }
 .slide-head, .slide-copy { display: contents !important; }
 .slide-head h1 { grid-area: title !important; max-width: 650px !important; margin: 0 0 20px !important; }
 .slide-head .k {
-  grid-area: k !important;
-  position: static !important;
-  justify-self: start !important;
-  align-self: end !important;
-  border-color: #ffcf78 !important;
-  background: var(--amber) !important;
-  color: #17233a !important;
-  box-shadow: 0 5px 16px #0004 !important;
+  position: absolute !important;
+  left: 56px !important;
+  bottom: 36px !important;
+  z-index: 2 !important;
+  max-width: calc(100% - 180px) !important;
+  overflow-wrap: anywhere !important;
+  padding: 5px 9px !important;
+  border: 1px solid #ffc35899 !important;
+  border-radius: 999px !important;
+  background: #ffc35812 !important;
+  box-shadow: none !important;
+  color: #ffda91 !important;
+  font: 500 12px "DM Mono", monospace !important;
+  letter-spacing: .03em !important;
+  text-transform: none !important;
+}
+.slide-head .page-number {
+  position: absolute !important;
+  right: 56px !important;
+  bottom: 38px !important;
+  z-index: 2 !important;
+  color: var(--muted) !important;
+  font: 500 12px "DM Mono", monospace !important;
+  letter-spacing: .05em !important;
+  white-space: nowrap !important;
 }
 .slide-copy > p:first-child {
   grid-area: body !important;
@@ -63,34 +81,62 @@ body {
   background: linear-gradient(90deg, #ffc3581c, #ffc35808) !important;
   color: #fff !important;
 }
-.take::before { background: var(--amber) !important; color: #17233a !important; }
+.take::before { color: var(--amber) !important; }
 .slide.visual .slide-figure { grid-area: figure !important; align-self: center !important; min-width: 0 !important; }
-.slide.visual .slide-source { grid-area: source !important; }
-.slide-source { align-self: end !important; justify-self: end !important; color: #d1dced !important; }
+.slide-source {
+  position: absolute !important;
+  right: 56px !important;
+  bottom: 64px !important;
+  max-width: calc(100% - 112px) !important;
+  margin: 0 !important;
+  color: #9aabc3 !important;
+  font-size: 12px !important;
+  text-align: right !important;
+}
 p, li { color: var(--muted) !important; }
 .caption { color: #d1dced !important; }
 
 .nav { border-color: var(--line) !important; background: #09111fe8 !important; }
 .nav a, .nav button { border-color: var(--line) !important; background: #172a47 !important; color: var(--ink) !important; }
-.jump input, .page-jump input { border-color: var(--line) !important; background: #0c1728 !important; color: var(--ink) !important; }
+.jump input { border-color: var(--line) !important; background: #0c1728 !important; color: var(--ink) !important; }
 .hint { color: #9aabc3 !important; }
 
 @media (max-width: 720px) {
   .slide {
     height: auto !important;
     min-height: calc(100svh - var(--controls-h) - 20px) !important;
-    padding: 30px 24px 82px !important;
+    padding: 30px 24px 160px !important;
     display: none !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
     gap: 20px !important;
   }
-  .slide.active { display: flex !important; }
-  .slide-head h1 { order: 1 !important; font-size: 34px !important; }
-  .slide-copy > p:first-child { order: 2 !important; }
-  .slide.visual .slide-figure { order: 3 !important; width: 100% !important; }
-  .slide-copy > .take { order: 4 !important; }
-  .slide-source { order: 5 !important; align-self: end !important; }
-  .slide-head .k { order: 6 !important; align-self: end !important; margin-top: auto !important; }
-  .diagram { max-height: 240px !important; }
+  .slide.active { display: grid !important; }
+  .slide.visual {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-areas: "title" "figure" "body" "take" !important;
+    grid-template-rows: auto auto auto auto !important;
+  }
+  .slide:not(.visual) {
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-areas: "title" "body" "take" !important;
+    grid-template-rows: auto auto 1fr !important;
+  }
+  .slide-head h1 { font-size: clamp(29px, 9vw, 38px) !important; }
+  .slide-copy { align-self: start !important; }
+  p, li { font-size: 15px !important; }
+  .diagram { max-height: none !important; }
+  .slide-head .k { left: 24px !important; bottom: 124px !important; max-width: calc(100% - 160px) !important; }
+  .slide-head .page-number { right: 24px !important; bottom: 126px !important; font-size: 11px !important; }
+  .slide-source { left: 24px !important; right: auto !important; bottom: 158px !important; max-width: calc(100% - 48px) !important; text-align: left !important; }
+  .nav { bottom: 6px !important; width: calc(100% - 12px) !important; justify-content: center !important; }
+  .nav > a { width: 38px !important; font-size: 0 !important; }
+  .nav > a::before { content: '← D2'; font-size: 11px; }
+  .hint { display: none !important; }
+  .nav button { padding: 8px 6px !important; }
+}
+
+@media (max-height: 720px) and (min-width: 721px) {
+  .slide { padding: 26px 34px 96px !important; gap: 14px !important; }
+  .diagram { max-height: 330px !important; }
+  h1 { font-size: 36px !important; }
+  .take { padding: 11px 14px !important; }
 }
