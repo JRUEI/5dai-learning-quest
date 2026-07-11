@@ -138,9 +138,10 @@ if (!legacy.day1.assignments["assignment-cloud-run"] || !legacy.day1.podcastSect
   errors.push("progress-sync-core.js: legacy Day 1 cloud progress migration failed");
 }
 const dayTwoWhitepaper = fs.readFileSync(path.join(root, "days/day2/whitepaper.html"), "utf8");
-if (!dayTwoWhitepaper.includes("5dai-progress") || !dayTwoWhitepaper.includes("5dai-cloud-loaded")) {
-  errors.push("days/day2/whitepaper.html: Day 2 Whitepaper does not publish and receive cloud progress");
-}
+if (!dayTwoWhitepaper.includes("5dai-progress")) errors.push("days/day2/whitepaper.html: Day 2 Whitepaper does not publish cloud progress");
+if (/5dai-cloud-loaded[\s\S]{0,120}\bgo\s*\(/.test(dayTwoWhitepaper)) errors.push("days/day2/whitepaper.html: cloud sync still forces visible page navigation");
+if (/location\.hash[\s\S]{0,120}localStorage\.getItem\('5dai-day2-whitepaper-slide'\)/.test(dayTwoWhitepaper)) errors.push("days/day2/whitepaper.html: saved progress still overrides the opening page");
+if (!dayTwoWhitepaper.includes("{passive:false}")) errors.push("days/day2/whitepaper.html: desktop wheel navigation does not prevent document scrolling");
 
 const dayOne = fs.readFileSync(path.join(root, "days/day1/index.html"), "utf8");
 if (!dayOne.includes("day-material-grid")) errors.push("day1.html: materials are not promoted to the top section");
@@ -179,6 +180,14 @@ for (const control of ['id="first"', 'id="page-number"', 'id="last"', "PageDown"
 }
 if (!whitepaper.includes('id="deck-progress"') || !whitepaper.includes("deckProgressBar.style.width")) {
   errors.push("whitepaper.html: visible reading progress bar is missing");
+}
+if (/5dai-cloud-loaded[\s\S]{0,120}\bgoTo\s*\(/.test(whitepaper) || whitepaper.includes("ProgressStore.state.whitepaperSlide+1")) {
+  errors.push("whitepaper.html: saved or cloud progress still forces visible page navigation");
+}
+if (!whitepaper.includes("{passive:false}")) errors.push("whitepaper.html: desktop wheel navigation does not prevent document scrolling");
+for (const file of ["days/day1/whitepaper.html", "days/day2/whitepaper.html"]) {
+  const html = fs.readFileSync(path.join(root, file), "utf8");
+  if (/page\.textContent=`PAGE|page-number">PAGE/.test(html)) errors.push(`${file}: page number still uses a PAGE prefix`);
 }
 for (const image of ["evolution-timeline.jpg", "agent-loop.jpg", "spectrum-table.jpg", "vibe-spectrum.jpg", "context-architecture.jpg", "new-sdlc.jpg", "factory-model.jpg", "harness-model.jpg", "developer-modes.jpg", "economics.jpg"]) {
   if (!fs.existsSync(path.join(root, "assets", "whitepaper", image))) errors.push(`Missing whitepaper diagram: ${image}`);
