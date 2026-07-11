@@ -49,13 +49,78 @@
       element.removeAttribute("id");
     });
     clone.querySelectorAll("strong").forEach(strong => {
-      if (strong.textContent.trim().length < 24) return;
-      const emphasis = document.createElement("span");
-      emphasis.className = "article-emphasis";
-      emphasis.textContent = strong.textContent.trim();
-      strong.replaceWith(emphasis);
+      strong.className = "article-emphasis";
     });
     return clone;
+  }
+
+  function paragraphAsList(paragraph) {
+    if (!paragraph.querySelector("br")) return null;
+    const lines = [document.createDocumentFragment()];
+    [...paragraph.childNodes].forEach(node => {
+      if (node.nodeName === "BR") lines.push(document.createDocumentFragment());
+      else lines[lines.length - 1].append(node.cloneNode(true));
+    });
+    const populated = lines.filter(line => line.textContent.trim());
+    if (populated.length < 2) return null;
+    const texts = populated.map(line => line.textContent.trim());
+    const marker = texts.every(text => /^•\s*/.test(text))
+      ? { tag: "ul", pattern: /^\s*•\s*/ }
+      : texts.every(text => /^\d+[.)]\s*/.test(text))
+        ? { tag: "ol", pattern: /^\s*\d+[.)]\s*/ }
+        : null;
+    if (!marker) return null;
+    const list = document.createElement(marker.tag);
+    populated.forEach(line => {
+      const walker = document.createTreeWalker(line, NodeFilter.SHOW_TEXT);
+      let textNode = walker.nextNode();
+      while (textNode && !textNode.nodeValue.trim()) textNode = walker.nextNode();
+      if (textNode) textNode.nodeValue = textNode.nodeValue.replace(marker.pattern, "");
+      const item = document.createElement("li");
+      item.append(line);
+      list.append(item);
+    });
+    return list;
+  }
+
+  function sourceCallout(block, card) {
+    let container = block.parentElement;
+    while (container && container !== card) {
+      if (/border-left\s*:/i.test(container.getAttribute("style") || "")) return container;
+      container = container.parentElement;
+    }
+    return null;
+  }
+
+  function appendArticleBlocks(card, section) {
+    const blocks = [...card.querySelectorAll("p, ul, ol")].filter(block => {
+      if (block.classList.contains("nowrap")) return false;
+      if (block.closest('[style*="border-top"]')) return false;
+      if (block.closest("li") && block.tagName === "P") return false;
+      return block.textContent.trim().length > 0;
+    });
+    let calloutSource = null;
+    let callout = null;
+    blocks.forEach(block => {
+      const clone = cleanClone(block);
+      const normalized = clone.tagName === "P" ? paragraphAsList(clone) || clone : clone;
+      const source = sourceCallout(block, card);
+      if (!source) {
+        calloutSource = null;
+        callout = null;
+        section.append(normalized);
+        return;
+      }
+      if (source !== calloutSource) {
+        calloutSource = source;
+        callout = document.createElement("blockquote");
+        callout.className = "article-callout";
+        const accent = (source.getAttribute("style") || "").match(/border-left\s*:[^;]*?(#[0-9a-f]{3,8}|rgba?\([^)]+\))/i)?.[1];
+        if (accent) callout.style.setProperty("--callout-accent", accent);
+        section.append(callout);
+      }
+      callout.append(normalized);
+    });
   }
 
   function sectionTitle(card, index) {
@@ -70,7 +135,7 @@
     const toc = document.createElement("nav");
     toc.className = "article-toc";
     toc.setAttribute("aria-label", "文章章節");
-    toc.innerHTML = "<strong>CHAPTERS</strong>";
+    toc.innerHTML = "<div class=\"chapter-heading\"><strong>CHAPTERS</strong><span class=\"chapter-progress\" id=\"chapter-progress\"></span></div>";
     const content = document.createElement("div");
     content.className = "article-content";
     const isDayTwo = material.endsWith("-day2");
@@ -99,12 +164,7 @@
       section.className = "article-section";
       section.id = id;
       section.innerHTML = `<span class="section-number">${sectionNumber}</span><h2>${titleText}</h2>`;
-      const paragraphs = [...card.querySelectorAll("p")].filter(paragraph => {
-        if (paragraph.classList.contains("nowrap")) return false;
-        if (paragraph.closest('[style*="border-top"]')) return false;
-        return paragraph.textContent.trim().length > 0;
-      });
-      paragraphs.forEach(paragraph => section.append(cleanClone(paragraph)));
+      appendArticleBlocks(card, section);
       content.append(section);
       if (isIntro || isEnding) return;
       const link = document.createElement("a");
@@ -234,15 +294,25 @@
   function setupReadingProgress() {
     if (!readingConfig) return;
     const indicator = document.querySelector("#material-progress");
+    const chapterIndicator = document.querySelector("#chapter-progress");
+    const chapterLinks = [...document.querySelectorAll(".article-toc a")];
     updateReadingProgress = () => {
-      const completed = readingConfig.store
-        ? ProgressStore.readingSummary()[readingConfig.store].completed
-        : Object.values(readStoredProgress()).filter(Boolean).length;
+      const sectionState = readingConfig.store
+        ? ProgressStore.state[`${readingConfig.store}Sections`]
+        : readStoredProgress();
+      const completed = Object.values(sectionState).filter(Boolean).length;
       const percent = Math.round(completed / readingConfig.total * 100);
       if (indicator) {
         indicator.textContent = `已閱讀 ${completed} / ${readingConfig.total}`;
         indicator.style.setProperty("--material-percent", `${percent}%`);
       }
+      if (chapterIndicator) chapterIndicator.textContent = `${completed} / ${readingConfig.total} SECTIONS`;
+      chapterLinks.forEach((link, index) => {
+        const isRead = Boolean(sectionState[String(index + 1)]);
+        link.classList.toggle("read", isRead);
+        if (isRead) link.dataset.readLabel = "已讀";
+        else delete link.dataset.readLabel;
+      });
     };
     const articleTopics = [...document.querySelectorAll(".article-section")].slice(1, -1);
     const cardTopics = cards.slice(1, -1);
