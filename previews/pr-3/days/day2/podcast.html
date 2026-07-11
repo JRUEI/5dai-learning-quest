@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>Day 2 Podcast · 5DAI Quest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Day 2 Podcast 課程內容與圖卡閱讀頁。">
+  <style>
+    /* 採用系統內建高質感字體，大幅提昇轉檔速度與穩定性，避免跨域阻擋 */
+    body {
+      background-color: #1a1a1a; margin: 0; padding: 100px 20px 40px 20px;
+      display: flex; flex-direction: column; align-items: center; gap: 40px; 
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
+    }
+    .toolbar {
+      position: fixed; top: 0; left: 0; right: 0; background: rgba(20,20,20,0.95);
+      padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;
+      z-index: 9999; color: white; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    button {
+      background: #E8C97A; color: #111; border: none; padding: 12px 24px; 
+      font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.2s;
+    }
+    button:hover { background: #f2d999; transform: scale(1.05); }
+    button:disabled { background: #444; color: #888; cursor: not-allowed; transform: none; }
+    
+    .card-wrapper {
+      width: 1080px; height: 1920px; transform-origin: top center; transform: scale(0.35); 
+      margin-bottom: -1248px; box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+    }
+    .nowrap { white-space: nowrap; }
+  </style>
+  
+  <link rel="stylesheet" href="../../css/reader.css">
+</head>
+<body data-material="podcast-day2">
+
+  <div class="toolbar"><nav class="reader-nav" aria-label="課程導覽"><a class="reader-brand" href="../../index.html">5DAI QUEST</a><div class="reader-links"><a href="../day2/index.html">Day 2 入口</a><a href="assignment.html">Assignment</a><a href="whitepaper.html">Whitepaper</a><div class="reader-mode" role="group" aria-label="閱讀模式"><button type="button" data-reader-mode="article" aria-pressed="false">文章版</button><button type="button" data-reader-mode="card" aria-pressed="false">圖卡版</button></div><span class="reader-progress" id="material-progress">已閱讀 0 / 6</span></div></nav></div>
+
+  <!-- 【封面卡 card-01】 -->
+  <div class="card-wrapper">
+    <div id="card-01" style="width: 1080px; height: 1920px; overflow: hidden; box-sizing: border-box; background: #111111; position: relative; display: flex; flex-direction: column; padding: 80px;">
+      
+      <div style="width: 56px; height: 4px; background: #E8C97A; margin-top: 60px; margin-bottom: 24px;"></div>
+      <div style="margin-bottom: auto;">
+        <span class="nowrap" style="background: rgba(232,201,122,0.12); border: 1px solid rgba(232,201,122,0.3); color: #E8C97A; padding: 10px 22px; border-radius: 6px; font-size: 26px; font-weight: 700; letter-spacing: 0.05em;">
+          節目拆解 / 完整收錄
+        </span>
+      </div>
+
+      <h1 style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 84px; font-weight: 900; color: #FFFFFF; line-height: 1.35; margin: 0 0 40px 0;">AI 代理互通性：<br>從孤立玩具到虛擬勞動力</h1>
+      <div style="border-left: 4px solid #E8C97A; padding-left: 32px; margin-bottom: 120px;">
+        <p style="font-size: 32px; font-weight: 300; color: #aaa; margin: 0; line-height: 1.6;">Google x Kaggle 白皮書深度解析：<br>五大核心互通性協定如何重塑軟體工程與人機協作模式？</p>
+      </div>
+
+      <div style="border-top: 1px solid #2A2A2A; padding-top: 36px; display: flex; justify-content: space-between; align-items: center;">
+        <p style="font-size: 24px; font-weight: 300; color: #aaa; margin: 0; letter-spacing: 0.03em;">Podcast Deep Dive 節目精華還原</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 【內容卡 card-02：現況痛點】 -->
+  <div class="card-wrapper">
+    <div id="card-02" style="width: 1080px; height: 1920px; overflow: hidden; box-sizing: border-box; background: #F9FAFB; position: relative; display: flex; flex-direction: column; padding: 72px 80px;">
+      
+      <div class="nowrap" style="position: absolute; top: 72px; right: 80px; font-size: 28px; font-weight: 300; color: #aaa; letter-spacing: 0.05em;">1 / 6</div>
+      
+      <div style="margin-bottom: 72px;">
+        <div class="nowrap" style="display: inline-flex; align-items: center; background: #E3F2FD; border-radius: 6px; padding: 10px 22px;">
+          <span style="font-size: 26px; font-weight: 700; color: #1565C0; letter-spacing: 0.06em;">現況痛點與典範轉移</span>
+        </div>
+      </div>
+
+      <div style="position: absolute; top: 140px; right: 60px; font-family: 'Songti TC', 'PMingLiU', serif; font-size: 320px; font-weight: 900; color: #EBEBEB; line-height: 1; z-index: 0; user-select: none;">01</div>
+
+      <div style="position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column;">
+        <h2 style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 64px; font-weight: 900; color: #111; line-height: 1.35; margin: 0 0 48px 0;">專屬電源線的陷阱與<br>「氛圍編碼者」的崛起</h2>
+        <div style="width: 48px; height: 4px; background: #1565C0; border-radius: 2px; margin-bottom: 52px;"></div>
+        
+        <div style="background: #FFFFFF; border-radius: 16px; padding: 56px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 40px; flex: 1;">
+          
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0 0 32px 0;">想像一下，你買了一台最頂級的智慧電視，卻發現它的電源線形狀奇特，根本插不進家裡任何標準插座，最後只能淪為一塊昂貴的磚頭。</p>
+          
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0 0 32px 0;">這正是目前 AI 開發的完美比喻。如果你只打造孤立的專屬代理，就像在製造客製化的電源線。<strong style="color: #111; font-weight: 700; background: linear-gradient(transparent 60%, #FFF59D 40%);">無標準零件互相連接的巨大阻力，最終會讓整個專案停滯不前。</strong></p>
+
+          <div style="background: #F3F4F6; border-left: 6px solid #1565C0; padding: 32px 40px; border-radius: 0 12px 12px 0; margin: 40px 0;">
+            <p style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 30px; font-weight: 700; color: #444; line-height: 1.7; margin: 0;">「為此，白皮書提出了一個根本性的典範轉移：『代理工程（Agentic Engineering）』。核心公式是：代理 = 模型 + 框架。」</p>
+          </div>
+
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0;">在這種新模式下，開發者的主要產出不再是原始程式碼，而是產生程式碼的「系統」。這樣的開發者被稱為「氛圍編碼者（Vibe Coders）」，他們專注於高階意圖與最終結果，由代理去處理所有骯髒的底層語法。</p>
+
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid #E5E7EB; padding-top: 36px;">
+        <p class="nowrap" style="font-size: 24px; font-weight: 300; color: #aaa; margin: 0; letter-spacing: 0.03em;">主講人 / Deep Dive Podcast</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 【內容卡 card-03：MCP 協定】 -->
+  <div class="card-wrapper">
+    <div id="card-03" style="width: 1080px; height: 1920px; overflow: hidden; box-sizing: border-box; background: #F9FAFB; position: relative; display: flex; flex-direction: column; padding: 72px 80px;">
+      
+      <div class="nowrap" style="position: absolute; top: 72px; right: 80px; font-size: 28px; font-weight: 300; color: #aaa; letter-spacing: 0.05em;">2 / 6</div>
+      
+      <div style="margin-bottom: 72px;">
+        <div class="nowrap" style="display: inline-flex; align-items: center; background: #FFF8E1; border-radius: 6px; padding: 10px 22px;">
+          <span style="font-size: 26px; font-weight: 700; color: #F57F17; letter-spacing: 0.06em;">想法 / 未來 (MCP 協定)</span>
+        </div>
+      </div>
+
+      <div style="position: absolute; top: 140px; right: 60px; font-family: 'Songti TC', 'PMingLiU', serif; font-size: 320px; font-weight: 900; color: #EBEBEB; line-height: 1; z-index: 0; user-select: none;">02</div>
+
+      <div style="position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column;">
+        <h2 style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 64px; font-weight: 900; color: #111; line-height: 1.35; margin: 0 0 48px 0;">修復管線，別對水大吼：<br>AI 專用的 USB-C 介面</h2>
+        <div style="width: 48px; height: 4px; background: #F57F17; border-radius: 2px; margin-bottom: 52px;"></div>
+        
+        <div style="background: #FFFFFF; border-radius: 16px; padding: 56px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 40px; flex: 1;">
+          
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0 0 32px 0;">如果不使用標準協定，每次連線都會陷入「複雜度災難」。想像用 5 個模型連接 10 個外部工具，你就得維護 50 個客製化整合點。萬一 Jira 明天更新了 API，你可能要改寫 5 遍程式碼。</p>
+          
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0 0 32px 0;">為此，<strong style="color: #111; font-weight: 700; background: linear-gradient(transparent 60%, #FFF59D 40%);">模型上下文協定（MCP）誕生了，它就像代理框架專用的 USB-C 介面。</strong>它將複雜度降至線性：模型只需與 MCP 溝通，MCP 再去對接外部工具。</p>
+
+          <div style="background: #F3F4F6; border-left: 6px solid #F57F17; padding: 32px 40px; border-radius: 0 12px 12px 0; margin: 40px 0;">
+            <p style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 30px; font-weight: 700; color: #444; line-height: 1.7; margin: 0;">「當 AI 產生幻覺時，人類的本能是在對話框裡罵它。但這會讓系統變得極度脆弱。」</p>
+          </div>
+
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0;">白皮書強烈建議不要盲目微調提示詞。「去修復管線，而不是對著水大吼。」你應該使用 MCP 檢查器查看底層傳輸的 JSON RPC 封包，修正實際的管線邏輯，並透過 RAG 動態載入工具，避免耗盡 AI 的注意力。</p>
+
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid #E5E7EB; padding-top: 36px;">
+        <p class="nowrap" style="font-size: 24px; font-weight: 300; color: #aaa; margin: 0; letter-spacing: 0.03em;">主講人 / Deep Dive Podcast</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 【內容卡 card-04：A2A 協定】 -->
+  <div class="card-wrapper">
+    <div id="card-04" style="width: 1080px; height: 1920px; overflow: hidden; box-sizing: border-box; background: #F9FAFB; position: relative; display: flex; flex-direction: column; padding: 72px 80px;">
+      
+      <div class="nowrap" style="position: absolute; top: 72px; right: 80px; font-size: 28px; font-weight: 300; color: #aaa; letter-spacing: 0.05em;">3 / 6</div>
+      
+      <div style="margin-bottom: 72px;">
+        <div class="nowrap" style="display: inline-flex; align-items: center; background: #E8F5E9; border-radius: 6px; padding: 10px 22px;">
+          <span style="font-size: 26px; font-weight: 700; color: #2E7D32; letter-spacing: 0.06em;">代理間協作 (A2A 協定)</span>
+        </div>
+      </div>
+
+      <div style="position: absolute; top: 140px; right: 60px; font-family: 'Songti TC', 'PMingLiU', serif; font-size: 320px; font-weight: 900; color: #EBEBEB; line-height: 1; z-index: 0; user-select: none;">03</div>
+
+      <div style="position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column;">
+        <h2 style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 64px; font-weight: 900; color: #111; line-height: 1.35; margin: 0 0 48px 0;">突破單體天花板：<br>為何代理不能只是「工具」？</h2>
+        <div style="width: 48px; height: 4px; background: #2E7D32; border-radius: 2px; margin-bottom: 52px;"></div>
+        
+        <div style="background: #FFFFFF; border-radius: 16px; padding: 56px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 40px; flex: 1;">
+          
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0 0 32px 0;">當面對「分析龐大資料庫、生成財務報表並發送 Email」這類複雜任務時，單一的全能代理會被龐大的選項淹沒，撞上所謂的「單體天花板」。解方是將任務外包給專業的子代理。</p>
+          
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0 0 32px 0;">但為什麼不能把子代理當作普通工具呼叫？因為普通工具（如鐵鎚）屬於「有界限域」，射後不理；而 AI 專家屬於「無界限域」，就像聘請廚房裝修承包商。</p>
+
+          <div style="background: #F3F4F6; border-left: 6px solid #2E7D32; padding: 32px 40px; border-radius: 0 12px 12px 0; margin: 40px 0;">
+            <p style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 30px; font-weight: 700; color: #444; line-height: 1.7; margin: 0;">「你不會丟張設計圖就走人。承包商可能會在牆後發現奇怪的管線，需要暫停並與你協商預算。代理需要的是混亂且持續的來回對話，而不只是乾淨的 API 呼叫。」</p>
+          </div>
+
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0;">如果把代理當工具，控制流就會在多輪對話中迷失。這就是為什麼需要 A2A（代理間互通）協定。它像工廠對講機，讓代理能夠彼此暫停、委派，甚至互相閱讀「代理卡（標準化履歷表）」來進行招募。</p>
+
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid #E5E7EB; padding-top: 36px;">
+        <p class="nowrap" style="font-size: 24px; font-weight: 300; color: #aaa; margin: 0; letter-spacing: 0.03em;">主講人 / Deep Dive Podcast</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 【內容卡 card-05：L402 微交易】 -->
+  <div class="card-wrapper">
+    <div id="card-05" style="width: 1080px; height: 1920px; overflow: hidden; box-sizing: border-box; background: #F9FAFB; position: relative; display: flex; flex-direction: column; padding: 72px 80px;">
+      
+      <div class="nowrap" style="position: absolute; top: 72px; right: 80px; font-size: 28px; font-weight: 300; color: #aaa; letter-spacing: 0.05em;">4 / 6</div>
+      
+      <div style="margin-bottom: 72px;">
+        <div class="nowrap" style="display: inline-flex; align-items: center; background: #F3E5F5; border-radius: 6px; padding: 10px 22px;">
+          <span style="font-size: 26px; font-weight: 700; color: #6A1B9A; letter-spacing: 0.06em;">自動化經濟 (L402 微交易)</span>
+        </div>
+      </div>
+
+      <div style="position: absolute; top: 140px; right: 60px; font-family: 'Songti TC', 'PMingLiU', serif; font-size: 320px; font-weight: 900; color: #EBEBEB; line-height: 1; z-index: 0; user-select: none;">04</div>
+
+      <div style="position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column;">
+        <h2 style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 64px; font-weight: 900; color: #111; line-height: 1.35; margin: 0 0 48px 0;">機器對機器的自主請款：<br>毫秒內完成結帳</h2>
+        <div style="width: 48px; height: 4px; background: #6A1B9A; border-radius: 2px; margin-bottom: 52px;"></div>
+        
+        <div style="background: #FFFFFF; border-radius: 16px; padding: 56px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 40px; flex: 1;">
+          
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0 0 32px 0;">代理間互相招募催生了「代理即服務」的新變現模式。但如果我寫的只是一個「負責格式化日期」的微型代理，每次呼叫成本只有幾美分，為此建立傳統企業帳單系統就太荒謬了。</p>
+          
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0 0 32px 0;">這就是 L402（buy402）標準發揮作用的地方。<strong style="color: #111; font-weight: 700; background: linear-gradient(transparent 60%, #FFF59D 40%);">當協調代理呼叫你的微型代理時，伺服器會攔截並回傳 HTTP 402（需要付款）錯誤與一張機器可讀的電子請款單。</strong></p>
+
+          <div style="background: #F3F4F6; border-left: 6px solid #6A1B9A; padding: 32px 40px; border-radius: 0 12px 12px 0; margin: 40px 0;">
+            <p style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 30px; font-weight: 700; color: #444; line-height: 1.7; margin: 0;">「這徹底改變了軟體應用程式的定義。機器實際收到帳單、審核預算，並在毫秒內完成支付，人類完全無需點擊『核准』。」</p>
+          </div>
+
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0;">協調代理會透過閃電網路自動支付這張發票，然後附上名為 Macaroon 的加密付款證明重新發起請求。整個微交易過程完全無狀態且全自動。</p>
+
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid #E5E7EB; padding-top: 36px;">
+        <p class="nowrap" style="font-size: 24px; font-weight: 300; color: #aaa; margin: 0; letter-spacing: 0.03em;">主講人 / Deep Dive Podcast</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 【內容卡 card-06：A2UI 協定】 -->
+  <div class="card-wrapper">
+    <div id="card-06" style="width: 1080px; height: 1920px; overflow: hidden; box-sizing: border-box; background: #F9FAFB; position: relative; display: flex; flex-direction: column; padding: 72px 80px;">
+      
+      <div class="nowrap" style="position: absolute; top: 72px; right: 80px; font-size: 28px; font-weight: 300; color: #aaa; letter-spacing: 0.05em;">5 / 6</div>
+      
+      <div style="margin-bottom: 72px;">
+        <div class="nowrap" style="display: inline-flex; align-items: center; background: #E3F2FD; border-radius: 6px; padding: 10px 22px;">
+          <span style="font-size: 26px; font-weight: 700; color: #1565C0; letter-spacing: 0.06em;">生成式介面 (A2UI 協定)</span>
+        </div>
+      </div>
+
+      <div style="position: absolute; top: 140px; right: 60px; font-family: 'Songti TC', 'PMingLiU', serif; font-size: 320px; font-weight: 900; color: #EBEBEB; line-height: 1; z-index: 0; user-select: none;">05</div>
+
+      <div style="position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column;">
+        <h2 style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 64px; font-weight: 900; color: #111; line-height: 1.35; margin: 0 0 48px 0;">作曲家發送樂譜：<br>完全無程式碼的 UI 渲染</h2>
+        <div style="width: 48px; height: 4px; background: #1565C0; border-radius: 2px; margin-bottom: 52px;"></div>
+        
+        <div style="background: #FFFFFF; border-radius: 16px; padding: 56px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 40px; flex: 1;">
+          
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0 0 32px 0;">當 AI 處理完資料，如果讓它動態寫 JavaScript 來渲染畫面，將帶來極大的跨網站指令碼（XSS）資安風險，它甚至可能竊取你的 Session 憑證。</p>
+          
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0 0 32px 0;">因此 A2UI 協定的核心理念是：<strong style="color: #111; font-weight: 700; background: linear-gradient(transparent 60%, #FFF59D 40%);">AI 就像作曲家，它發送的只有「樂譜」，而不是錄音檔。</strong>AI 輸出宣告式的 JSON 意圖（例如：這裡放個表格），而你的前端框架就像管弦樂團，負責安全地演奏出來。</p>
+
+          <div style="background: #F3F4F6; border-left: 6px solid #1565C0; padding: 32px 40px; border-radius: 0 12px 12px 0; margin: 40px 0;">
+            <p style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 30px; font-weight: 700; color: #444; line-height: 1.7; margin: 0;">「AI 只指出『按鈕放這』，而你的應用程式會使用設計團隊花了 6 個月打磨、帶有品牌色的按鈕來呈現它。」</p>
+          </div>
+
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0;">這促成了「畫布（Canvas）」體驗。人類與機器能共享同一個動態工作區，當你拉動滑桿，AI 會同步感知並即時重繪圖表，這才是真正的無縫協作。</p>
+
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid #E5E7EB; padding-top: 36px;">
+        <p class="nowrap" style="font-size: 24px; font-weight: 300; color: #aaa; margin: 0; letter-spacing: 0.03em;">主講人 / Deep Dive Podcast</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 【內容卡 card-07：UCP & AP2 協定】 -->
+  <div class="card-wrapper">
+    <div id="card-07" style="width: 1080px; height: 1920px; overflow: hidden; box-sizing: border-box; background: #F9FAFB; position: relative; display: flex; flex-direction: column; padding: 72px 80px;">
+      
+      <div class="nowrap" style="position: absolute; top: 72px; right: 80px; font-size: 28px; font-weight: 300; color: #aaa; letter-spacing: 0.05em;">6 / 6</div>
+      
+      <div style="margin-bottom: 72px;">
+        <div class="nowrap" style="display: inline-flex; align-items: center; background: #FFEBEE; border-radius: 6px; padding: 10px 22px;">
+          <span style="font-size: 26px; font-weight: 700; color: #C62828; letter-spacing: 0.06em;">實體經濟 (UCP 與 AP2)</span>
+        </div>
+      </div>
+
+      <div style="position: absolute; top: 140px; right: 60px; font-family: 'Songti TC', 'PMingLiU', serif; font-size: 320px; font-weight: 900; color: #EBEBEB; line-height: 1; z-index: 0; user-select: none;">06</div>
+
+      <div style="position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column;">
+        <h2 style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 64px; font-weight: 900; color: #111; line-height: 1.35; margin: 0 0 48px 0;">半夜訂購 Taco Bell：<br>連結實體經濟的安全鎖箱</h2>
+        <div style="width: 48px; height: 4px; background: #C62828; border-radius: 2px; margin-bottom: 52px;"></div>
+        
+        <div style="background: #FFFFFF; border-radius: 16px; padding: 56px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 40px; flex: 1;">
+          
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0 0 32px 0;">如果半夜兩點你餓了，想讓 AI 幫你訂速食，UCP（通用商業協定）會充當菜單翻譯器，直接用機器語言與店家的 POS 系統溝通、查詢庫存並將餐點加入購物車。</p>
+          
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0 0 32px 0;">但到了結帳時，你絕對不想把信用卡號放進 AI 提示詞裡。要是它產生幻覺，不小心買了一台 1,000 美元的電視怎麼辦？或者店家偷偷灌水隱藏費用？</p>
+
+          <div style="background: #F3F4F6; border-left: 6px solid #C62828; padding: 32px 40px; border-radius: 0 12px 12px 0; margin: 40px 0;">
+            <p style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 30px; font-weight: 700; color: #444; line-height: 1.7; margin: 0;">「AP2（代理支付協定）專為中和這份恐懼而生。它就像一張有著堅不可摧加密規則的企業費用卡。」</p>
+          </div>
+
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0;">結帳時 AI 並不持有你的信用卡號，而是發送一份包含購物車明細、且「由你的設備加密簽署」的數位本票。只要價格被竄改或內容不符，底層支付處理器就會立刻拒絕交易，打造出一個完美的無需信任安全鎖箱。</p>
+
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid #E5E7EB; padding-top: 36px;">
+        <p class="nowrap" style="font-size: 24px; font-weight: 300; color: #aaa; margin: 0; letter-spacing: 0.03em;">主講人 / Deep Dive Podcast</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 【結尾卡 card-08】 -->
+  <div class="card-wrapper">
+    <div id="card-08" style="width: 1080px; height: 1920px; overflow: hidden; box-sizing: border-box; background: #111111; position: relative; display: flex; flex-direction: column; justify-content: center; padding: 80px;">
+      
+      <div style="border: 1px solid rgba(232,201,122,0.3); border-radius: 16px; padding: 52px; margin-bottom: 80px;">
+        <div style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 80px; color: rgba(232,201,122,0.2); line-height: 0.8; margin-bottom: 20px; font-weight: 900;">"</div>
+        <p style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 38px; font-weight: 700; color: #E8C97A; line-height: 1.7; margin: 0 0 28px 0;">你曾受困於數位車庫，手工雕刻專屬的木齒輪，祈禱它們能順利咬合。<br><br>現在，你正接入全球電網，設定交戰規則，看著一整座自治工廠在你眼前甦醒。</p>
+        <p style="font-size: 26px; font-weight: 300; color: #888; margin: 0;">— Google x Kaggle 白皮書深度解析</p>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 24px;">
+        <div style="flex: 1; height: 1px; background: #2A2A2A;"></div>
+        <span style="font-size: 24px; font-weight: 700; color: #555; letter-spacing: 0.2em;">END</span>
+        <div style="flex: 1; height: 1px; background: #2A2A2A;"></div>
+      </div>
+    </div>
+  </div>
+  <p class="reader-note">Day 2 Podcast 提供文章版與圖卡版；手機可點擊圖卡放大並左右滑動。</p>
+  <script src="../../js/course-data.js"></script><script src="../../js/progress.js"></script><script src="../../js/material.js"></script>
+  <script type="module" src="../../js/firebase-sync.js"></script>
+</body>
+</html>
