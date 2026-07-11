@@ -10,6 +10,7 @@ The visible website label is always `Whitepaper`. Do not replace it with `核心
 
 - Day 1 page: `days/day1/whitepaper.html`; 32 reading pages use `ProgressStore.whitepaperSlide` and synchronize after Google sign-in.
 - Day 2 page: `days/day2/whitepaper.html`; 18 reading pages use `5dai-day2-whitepaper-slide` offline and synchronize after Google sign-in.
+- Day 3 page: `days/day3/whitepaper.html`; the current scaffold is source-gated and does not publish invented slide content.
 - Extracted visual assets live under `assets/whitepaper/` and `assets/whitepaper/day2/`; never substitute a full PDF page when a complete figure region can be extracted.
 
 ## MCP namespace
@@ -92,8 +93,16 @@ Whitepaper pages are presentation slides, not article pages placed inside a slid
 ### Labels and section markers
 
 - Kickers, topic names and other labels must look intentional and be immediately scannable.
-- Use a high-contrast badge, pill or similarly prominent treatment instead of small, faint colored text floating above the title.
+- Use the shared Whitepaper palette from Day 1 for Day 1, Day 2 and Day 3: `--bg: #09101d`, `--ink: #f7faff`, `--muted: #e0e9f7`, `--line: #3d608e`, `--amber: #ffc358`, and `--blue: #b7d9ff`. Do not introduce a separate green/lime Whitepaper palette for later Days.
+- Place the topic kicker at the lower left as a thin amber outline pill. Use sentence-style casing for prose labels while preserving product acronyms such as `MCP`, `A2A`, `A2UI`, `UCP`, `AP2`, `SDLC`, `API`, `PDF`, and `HITL`.
+- Place `PAGE NN / NN` as plain text at the lower right, without a filled background or shared pill with the topic label.
 - Preserve the slide number and topic identity, but do not let metadata compete with the main title.
+
+### Opening and progress behavior
+
+- Opening a Whitepaper URL without an explicit `#page=N` fragment starts on page 1.
+- An explicit `#page=N` fragment is a supported deep link and may open that page.
+- Local progress and Firebase synchronization record reading progress but must never force the reader to the latest completed page on initial load or after cloud sync.
 
 ### Takeaways and emphasis
 

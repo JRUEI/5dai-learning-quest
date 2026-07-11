@@ -17,4 +17,5 @@
 - The `gh-pages` branch is generated deployment state. Never edit it manually. Closing a pull request removes its preview automatically.
 - Parallel workstreams must reread `AGENTS.md` and the relevant file in `docs/mcp/` immediately before changing shared website files.
 - Validation should test stable behavior or markup contracts, not private variable names. Script URLs may include cache-busting query parameters such as `?v=...`.
+- For visual website tasks, once validation passes, update the requested working-tree files directly and provide a browser/page preview without waiting for code-diff approval. Treat the webpage as the primary review surface; ask for a choice only when the choice changes the design direction.
 - After updating the clone, state which files GitHub Desktop should commit and suggest a commit message.

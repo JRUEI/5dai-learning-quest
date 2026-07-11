@@ -43,4 +43,10 @@ If two proposed tasks overlap any owned path, combine them into one branch or ru
 7. When approved, update the branch from current `main`, rerun checks, and merge through the integration workstream.
 8. Update every remaining open branch from the new `main` before its next review or merge.
 
+## User-facing review
+
+- For visual website changes, a passing validation is the point to update the requested working-tree files and provide the webpage preview directly; do not pause for code-diff approval.
+- The webpage or browser preview is the primary review surface. Code diffs are implementation detail unless the user asks for them.
+- Ask the user to choose only when the choice changes the design direction. After the choice, apply the selected direction, validate it, and hand back the updated webpage view.
+
 Closing or merging a pull request removes its preview automatically. Historical failed Actions remain visible, but only the latest checks determine whether a branch is ready.
