@@ -58,14 +58,15 @@
       if (!card) return;
       const id = `${material}-section-${index + 1}`;
       const titleText = sectionTitle(card, index);
+      const isPodcast = material === "podcast" || material === "podcast-day2";
       const isDayOnePodcast = material === "podcast";
-      const isPodcastIntro = isDayOnePodcast && index === 0;
-      const isPodcastEnding = isDayOnePodcast && index === cards.length - 1;
+      const isPodcastIntro = isPodcast && index === 0;
+      const isPodcastEnding = isPodcast && index === cards.length - 1;
       const sectionNumber = isPodcastIntro
         ? "INTRO"
         : isPodcastEnding
           ? "END"
-          : String(isDayOnePodcast ? index : index + 1).padStart(2, "0");
+          : String(isPodcast ? index : index + 1).padStart(2, "0");
       const section = document.createElement("section");
       section.className = "article-section";
       section.id = id;
@@ -227,8 +228,53 @@
     updatePodcastProgress();
   }
 
+  function setupChapterNavigation() {
+    if (material !== "podcast" && material !== "podcast-day2") return;
+    const toc = document.querySelector(".article-toc");
+    const links = [...toc.querySelectorAll("a")];
+    if (!links.length) return;
+    const chapters = links.map(link => ({
+      link,
+      section: document.querySelector(link.getAttribute("href"))
+    })).filter(chapter => chapter.section);
+    let activeLink = null;
+
+    function setActive(link) {
+      if (link === activeLink) return;
+      chapters.forEach(chapter => {
+        const active = chapter.link === link;
+        chapter.link.classList.toggle("active", active);
+        if (active) chapter.link.setAttribute("aria-current", "location");
+        else chapter.link.removeAttribute("aria-current");
+      });
+      activeLink = link;
+      if (mobileQuery.matches) {
+        link.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      }
+    }
+
+    function updateActiveChapter() {
+      if (!document.body.classList.contains("mode-article")) return;
+      const marker = Math.min(window.innerHeight * 0.35, 260);
+      let current = chapters[0];
+      chapters.forEach(chapter => {
+        if (chapter.section.getBoundingClientRect().top <= marker) current = chapter;
+      });
+      setActive(current.link);
+    }
+
+    links.forEach(link => link.addEventListener("click", () => setActive(link)));
+    window.addEventListener("scroll", updateActiveChapter, { passive: true });
+    window.addEventListener("resize", updateActiveChapter);
+    document.querySelectorAll("[data-reader-mode]").forEach(button => {
+      button.addEventListener("click", () => requestAnimationFrame(updateActiveChapter));
+    });
+    requestAnimationFrame(updateActiveChapter);
+  }
+
   buildArticleView();
   setupPodcastProgress();
+  setupChapterNavigation();
   buildLightbox();
   document.querySelectorAll("[data-reader-mode]").forEach(button => {
     button.addEventListener("click", () => setMode(button.dataset.readerMode, true));
