@@ -26,6 +26,7 @@ Each Day directory uses `index.html` as its landing page. Material pages such as
 
 ## Validation and parallel work
 
-Run `node scripts/validate-site.mjs` before committing changes intended for
-`main`. Parallel Codex tasks should use separate worktrees/branches; only the
-integration task should merge and push `main`.
+Run `node scripts/validate-site.mjs` before committing or updating a pull
+request. Parallel Codex tasks should use separate worktrees/branches. Direct
+pushes to protected `main` are blocked; only the integration task should merge
+a pull request after the `validate` check passes.
