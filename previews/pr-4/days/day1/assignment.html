@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Day 1 完整 Assignment · 5DAI Quest</title>
+  <meta name="description" content="Day 1 Assignment：Unit 1 課程與 Codelab 任務完整閱讀版。">
+  <style>
+    /* 採用系統內建高質感字體，大幅提昇轉檔速度與穩定性，避免跨域阻擋 */
+    body {
+      background-color: #1a1a1a; margin: 0; padding: 100px 20px 40px 20px;
+      display: flex; flex-direction: column; align-items: center; gap: 40px; 
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Microsoft JhengHei", sans-serif;
+    }
+    .toolbar {
+      position: fixed; top: 0; left: 0; right: 0; background: rgba(20,20,20,0.95);
+      padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;
+      z-index: 9999; color: white; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    button {
+      background: #E8C97A; color: #111; border: none; padding: 12px 24px; 
+      font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: 0.2s;
+    }
+    button:hover { background: #f2d999; transform: scale(1.05); }
+    button:disabled { background: #444; color: #888; cursor: not-allowed; transform: none; }
+    
+    .card-wrapper {
+      width: 1080px; height: 1920px; transform-origin: top center; transform: scale(0.35); 
+      margin-bottom: -1248px; box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+    }
+    .nowrap { white-space: nowrap; }
+  </style>
+  
+  <link rel="stylesheet" href="../../css/reader.css">
+</head>
+<body data-material="assignment">
+
+  <div class="toolbar">
+<nav class="reader-nav" aria-label="教材導覽"><a class="reader-brand" href="../../index.html">5DAI QUEST</a><div class="reader-links"><a href="../day1/index.html">Day 1 資料庫</a><a href="podcast.html">Podcast</a><a href="whitepaper.html">Whitepaper</a><div class="reader-mode" role="group" aria-label="閱讀模式"><button type="button" data-reader-mode="article" aria-pressed="false">文章版</button><button type="button" data-reader-mode="card" aria-pressed="false">圖卡版</button></div><span class="reader-progress" id="material-progress">已閱讀 0 / 4</span></div></nav>
+  </div>
+
+  <!-- 【封面卡 card-01】 -->
+  <div class="card-wrapper">
+    <div id="card-01" style="width: 1080px; height: 1920px; overflow: hidden; box-sizing: border-box; background: #111111; position: relative; display: flex; flex-direction: column; padding: 80px;">
+      
+      <div style="width: 56px; height: 4px; background: #E8C97A; margin-top: 60px; margin-bottom: 24px;"></div>
+      <div style="margin-bottom: auto;">
+        <span class="nowrap" style="background: rgba(232,201,122,0.12); border: 1px solid rgba(232,201,122,0.3); color: #E8C97A; padding: 10px 22px; border-radius: 6px; font-size: 26px; font-weight: 700; letter-spacing: 0.05em;">
+          學習任務 / 完整收錄
+        </span>
+      </div>
+
+      <h1 style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 84px; font-weight: 900; color: #FFFFFF; line-height: 1.35; margin: 0 0 40px 0;">🎒 Day 1 Assignment<br>Complete Unit 1</h1>
+      <div style="border-left: 4px solid #E8C97A; padding-left: 32px; margin-bottom: 120px;">
+        <p style="font-size: 32px; font-weight: 300; color: #aaa; margin: 0; line-height: 1.6;">"Introduction to Agents & Vibe Coding"<br>Explore how AI agents compress the traditional SDLC.</p>
+      </div>
+
+      <div style="border-top: 1px solid #2A2A2A; padding-top: 36px; display: flex; justify-content: space-between; align-items: center;">
+        <p style="font-size: 24px; font-weight: 300; color: #aaa; margin: 0; letter-spacing: 0.03em;">Kaggle / Learning Community</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 【內容卡 card-02：任務清單】 -->
+  <div class="card-wrapper">
+    <div id="card-02" style="width: 1080px; height: 1920px; overflow: hidden; box-sizing: border-box; background: #F9FAFB; position: relative; display: flex; flex-direction: column; padding: 72px 80px;">
+      
+      <div class="nowrap" style="position: absolute; top: 72px; right: 80px; font-size: 28px; font-weight: 300; color: #aaa; letter-spacing: 0.05em;">2 / 6</div>
+      
+      <!-- 一般話題標籤 -->
+      <div style="margin-bottom: 72px;">
+        <div class="nowrap" style="display: inline-flex; align-items: center; background: #E3F2FD; border-radius: 6px; padding: 10px 22px;">
+          <span style="font-size: 26px; font-weight: 700; color: #1565C0; letter-spacing: 0.06em;">ASSIGNMENTS</span>
+        </div>
+      </div>
+
+      <div style="position: absolute; top: 140px; right: 60px; font-family: 'Songti TC', 'PMingLiU', serif; font-size: 320px; font-weight: 900; color: #EBEBEB; line-height: 1; z-index: 0; user-select: none;">01</div>
+
+      <div style="position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column;">
+        <h2 style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 64px; font-weight: 900; color: #111; line-height: 1.35; margin: 0 0 48px 0;">Complete Unit 1</h2>
+        <div style="width: 48px; height: 4px; background: #1565C0; border-radius: 2px; margin-bottom: 52px;"></div>
+        
+        <div style="background: #FFFFFF; border-radius: 16px; padding: 56px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 40px; flex: 1;">
+          
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0 0 32px 0;">Listen to the summary podcast episode for this unit.</p>
+          
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0 0 40px 0;">To complement the podcast, read <strong style="color: #111; font-weight: 700; background: linear-gradient(transparent 60%, #FFF59D 40%);">"The New SDLC with Vibe Coding"</strong> whitepaper.</p>
+
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0 0 16px 0;">Complete these codelabs on Kaggle:</p>
+          
+          <ul style="font-size: 32px; color: #333; line-height: 1.8; margin: 0; padding-left: 40px;">
+            <li style="margin-bottom: 16px;">Get started with Antigravity 2.0 and IDE</li>
+            <li>Build a Web Application in AI Studio and Deploy to Cloud Run</li>
+          </ul>
+
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid #E5E7EB; padding-top: 36px;">
+        <p class="nowrap" style="font-size: 24px; font-weight: 300; color: #aaa; margin: 0; letter-spacing: 0.03em;">Kaggle / Day 1</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 【內容卡 card-03：學習核心概念】 -->
+  <div class="card-wrapper">
+    <div id="card-03" style="width: 1080px; height: 1920px; overflow: hidden; box-sizing: border-box; background: #F9FAFB; position: relative; display: flex; flex-direction: column; padding: 72px 80px;">
+      
+      <div class="nowrap" style="position: absolute; top: 72px; right: 80px; font-size: 28px; font-weight: 300; color: #aaa; letter-spacing: 0.05em;">3 / 6</div>
+      
+      <!-- 想法/未來標籤 -->
+      <div style="margin-bottom: 72px;">
+        <div class="nowrap" style="display: inline-flex; align-items: center; background: #FFF8E1; border-radius: 6px; padding: 10px 22px;">
+          <span style="font-size: 26px; font-weight: 700; color: #F57F17; letter-spacing: 0.06em;">CONCEPTS</span>
+        </div>
+      </div>
+
+      <div style="position: absolute; top: 140px; right: 60px; font-family: 'Songti TC', 'PMingLiU', serif; font-size: 320px; font-weight: 900; color: #EBEBEB; line-height: 1; z-index: 0; user-select: none;">02</div>
+
+      <div style="position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column;">
+        <h2 style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 64px; font-weight: 900; color: #111; line-height: 1.35; margin: 0 0 48px 0;">💡 What You'll Learn</h2>
+        <div style="width: 48px; height: 4px; background: #F57F17; border-radius: 2px; margin-bottom: 52px;"></div>
+        
+        <div style="background: #FFFFFF; border-radius: 16px; padding: 56px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 40px; flex: 1;">
+          
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0 0 32px 0;">Today's whitepaper talks about the transition from manual syntax coding to intent-driven "vibe coding" and disciplined "agentic engineering."</p>
+
+          <div style="background: #FFFDE7; border-left: 6px solid #F57F17; padding: 32px 40px; border-radius: 0 12px 12px 0; margin: 40px 0;">
+            <p style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 30px; font-weight: 700; color: #555; line-height: 1.7; margin: 0;">"It explores how AI agents compress the traditional software development life cycle (SDLC)..."</p>
+          </div>
+
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0;">...and explains the <strong>"factory model"</strong> where developers act as system orchestrators who design the evaluation, constraint, and context harnesses that safely guide autonomous execution.</p>
+
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid #E5E7EB; padding-top: 36px;">
+        <p class="nowrap" style="font-size: 24px; font-weight: 300; color: #aaa; margin: 0; letter-spacing: 0.03em;">Kaggle / Day 1</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 【內容卡 card-04：實作演練】 -->
+  <div class="card-wrapper">
+    <div id="card-04" style="width: 1080px; height: 1920px; overflow: hidden; box-sizing: border-box; background: #F9FAFB; position: relative; display: flex; flex-direction: column; padding: 72px 80px;">
+      
+      <div class="nowrap" style="position: absolute; top: 72px; right: 80px; font-size: 28px; font-weight: 300; color: #aaa; letter-spacing: 0.05em;">4 / 6</div>
+      
+      <!-- 技能/生平故事標籤色 -->
+      <div style="margin-bottom: 72px;">
+        <div class="nowrap" style="display: inline-flex; align-items: center; background: #E8F5E9; border-radius: 6px; padding: 10px 22px;">
+          <span style="font-size: 26px; font-weight: 700; color: #2E7D32; letter-spacing: 0.06em;">PRACTICE</span>
+        </div>
+      </div>
+
+      <div style="position: absolute; top: 140px; right: 60px; font-family: 'Songti TC', 'PMingLiU', serif; font-size: 320px; font-weight: 900; color: #EBEBEB; line-height: 1; z-index: 0; user-select: none;">03</div>
+
+      <div style="position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column;">
+        <h2 style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 64px; font-weight: 900; color: #111; line-height: 1.35; margin: 0 0 48px 0;">Hands-On Codelabs</h2>
+        <div style="width: 48px; height: 4px; background: #2E7D32; border-radius: 2px; margin-bottom: 52px;"></div>
+        
+        <div style="background: #FFFFFF; border-radius: 16px; padding: 56px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 40px; flex: 1;">
+          
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0 0 48px 0;">In the codelabs, you'll familiarize yourself with <strong style="color: #111; font-weight: 700; background: linear-gradient(transparent 60%, #C8E6C9 40%);">Antigravity 2.0, the Antigravity IDE, and the Antigravity CLI</strong> to vibecode your first applications.</p>
+          
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0;">You'll also use Google AI Studio to deploy your app to Cloud Run, enabling you to share your vibe coded app with your friends.</p>
+
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid #E5E7EB; padding-top: 36px;">
+        <p class="nowrap" style="font-size: 24px; font-weight: 300; color: #aaa; margin: 0; letter-spacing: 0.03em;">Kaggle / Day 1</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 【內容卡 card-05：重要提醒】 -->
+  <div class="card-wrapper">
+    <div id="card-05" style="width: 1080px; height: 1920px; overflow: hidden; box-sizing: border-box; background: #F9FAFB; position: relative; display: flex; flex-direction: column; padding: 72px 80px;">
+      
+      <div class="nowrap" style="position: absolute; top: 72px; right: 80px; font-size: 28px; font-weight: 300; color: #aaa; letter-spacing: 0.05em;">5 / 6</div>
+      
+      <!-- 情緒/重要提醒標籤色 -->
+      <div style="margin-bottom: 72px;">
+        <div class="nowrap" style="display: inline-flex; align-items: center; background: #FFEBEE; border-radius: 6px; padding: 10px 22px;">
+          <span style="font-size: 26px; font-weight: 700; color: #C62828; letter-spacing: 0.06em;">REMINDERS</span>
+        </div>
+      </div>
+
+      <div style="position: absolute; top: 140px; right: 60px; font-family: 'Songti TC', 'PMingLiU', serif; font-size: 320px; font-weight: 900; color: #EBEBEB; line-height: 1; z-index: 0; user-select: none;">04</div>
+
+      <div style="position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column;">
+        <h2 style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 64px; font-weight: 900; color: #111; line-height: 1.35; margin: 0 0 48px 0;">📋 Livestream & Community</h2>
+        <div style="width: 48px; height: 4px; background: #C62828; border-radius: 2px; margin-bottom: 52px;"></div>
+        
+        <div style="background: #FFFFFF; border-radius: 16px; padding: 56px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-bottom: 40px; flex: 1;">
+          
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0 0 32px 0;">Tomorrow at 11:00 AM PT, Anant Nawalgaria and Smitha Kolan will host the first livestream on Kaggle's YouTube channel.</p>
+          
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0 0 32px 0;">They'll be joined by codelab author Fran Hinkelmann, along with other special guests from Google: Jamie de Guerre, Logan Kilpatrick, Parthasarathy Ranganathan, and Shubham Saboo to discuss the assignments and share insights.</p>
+
+          <p style="font-size: 32px; color: #333; line-height: 1.8; margin: 0;">We want this community to be positive and supportive. Please follow Kaggle's community guidelines found here.</p>
+
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid #E5E7EB; padding-top: 36px;">
+        <p class="nowrap" style="font-size: 24px; font-weight: 300; color: #aaa; margin: 0; letter-spacing: 0.03em;">Kaggle / Day 1</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 【結尾卡 card-06】 -->
+  <div class="card-wrapper">
+    <div id="card-06" style="width: 1080px; height: 1920px; overflow: hidden; box-sizing: border-box; background: #111111; position: relative; display: flex; flex-direction: column; justify-content: center; padding: 80px;">
+      
+      <div style="border: 1px solid rgba(232,201,122,0.3); border-radius: 16px; padding: 52px; margin-bottom: 80px;">
+        <div style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 80px; color: rgba(232,201,122,0.2); line-height: 0.8; margin-bottom: 20px; font-weight: 900;">"</div>
+        <p style="font-family: 'Songti TC', 'PMingLiU', serif; font-size: 48px; font-weight: 700; color: #E8C97A; line-height: 1.7; margin: 0 0 28px 0;">Happy learning and see you tomorrow!</p>
+        <p style="font-size: 26px; font-weight: 300; color: #888; margin: 0;">— Kaggle Community</p>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 24px;">
+        <div style="flex: 1; height: 1px; background: #2A2A2A;"></div>
+        <span style="font-size: 24px; font-weight: 700; color: #555; letter-spacing: 0.2em;">END</span>
+        <div style="flex: 1; height: 1px; background: #2A2A2A;"></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="reader-note">手機預設圖卡版、桌機預設文章版；可由頁首手動切換。閱讀後請回到 <a href="../day1/index.html">Day 1 資料庫</a> 勾選實際完成的任務。</p>
+  <script>
+    async function downloadAllCards() {
+      const btn = document.getElementById('downloadBtn');
+      const statusText = document.getElementById('statusText');
+      btn.disabled = true;
+      
+      // 自動抓取畫面上所有的卡片 ID
+      const cardElements = document.querySelectorAll('.card-wrapper > div[id^="card-"]');
+      const cards = Array.from(cardElements).map(el => el.id);
+      
+      if (cards.length === 0) {
+        statusText.innerText = "❌ 找不到任何卡片，請確認 HTML 結構！";
+        btn.disabled = false;
+        return;
+      }
+
+      const zip = new JSZip();
+      let successCount = 0;
+
+      for (let i = 0; i < cards.length; i++) {
+        statusText.innerText = `⏳ 極速擷取中：第 ${i + 1} / ${cards.length} 張...`;
+        const node = document.getElementById(cards[i]);
+        
+        // 自動將畫面滾動到該卡片位置 (防止瀏覽器罷工不渲染視窗外的圖片)
+        node.scrollIntoView({ behavior: 'instant', block: 'center' });
+        
+        await new Promise(resolve => setTimeout(resolve, 200)); 
+
+        try {
+          const dataUrl = await htmlToImage.toPng(node, { 
+            pixelRatio: 1, 
+            quality: 1.0,
+            style: { transform: 'scale(1)', transformOrigin: 'top left' },
+            cacheBust: true
+          });
+          
+          const base64Data = dataUrl.split(',')[1];
+          zip.file(`Info-${cards[i]}.png`, base64Data, {base64: true});
+          successCount++;
+          
+        } catch (error) { 
+          console.error(`第 ${i+1} 張產生失敗:`, error);
+          alert(`❌ 警告：第 ${i+1} 張 (${cards[i]}) 轉檔失敗！\n錯誤原因: ${error.message}`);
+        }
+      }
+      
+      if (successCount > 0) {
+        statusText.innerText = `📦 成功擷取 ${successCount} 張，正在生成 ZIP 檔...`;
+        zip.generateAsync({type:"blob"}).then(function(content) {
+          saveAs(content, "Info-Cards.zip");
+          statusText.innerText = `🎉 恭喜！全套 ${successCount} 張卡片打包完成！`;
+          btn.disabled = false;
+        });
+      } else {
+        statusText.innerText = "❌ 所有卡片皆產生失敗。";
+        btn.disabled = false;
+      }
+    }
+  </script>
+  <script src="../../js/course-data.js"></script><script src="../../js/progress.js"></script><script src="../../js/material.js"></script>
+<script type="module" src="../../js/firebase-sync.js"></script></body>
+</html>
